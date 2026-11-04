@@ -36,6 +36,13 @@ nvidia-smi --query-gpu=timestamp,utilization.gpu,utilization.memory,memory.used,
     --format=csv -l 30 > "$ROOT/results/train/$RUN/gpu_monitor_$SLURM_JOB_ID.csv" &
 MON=$!
 
+# Concurrent jobs must never rebuild the shared labels.cache (unlink race in ultralytics 8.4.202).
+if ! python scripts/check_label_caches.py; then
+    echo "== stale label cache -> abort (rebuild once on the login node)"
+    kill "$MON"
+    exit 1
+fi
+
 status=$(python -c "import json,sys; print(json.load(open('$META'))['extra']['status'])" 2>/dev/null || echo none)
 if [ "$status" = "completed" ] && [ -f "$RUN_DIR/weights/best.pt" ]; then
     echo "== training already completed -> skip"

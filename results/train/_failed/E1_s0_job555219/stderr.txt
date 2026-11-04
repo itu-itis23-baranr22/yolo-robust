@@ -1,0 +1,54 @@
+Traceback (most recent call last):
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/data/dataset.py", line 289, in _load_or_scan_cache
+    assert cache["hash"] == cache_hash  # identical hash
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/ari/users/rbaran/yolo-robust/scripts/train.py", line 175, in <module>
+    main()
+  File "/ari/users/rbaran/yolo-robust/scripts/train.py", line 152, in main
+    model.train(project=str(project), name=name, exist_ok=False, trainer=trainer, **kw)
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/engine/model.py", line 901, in train
+    self.trainer.train()
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/engine/trainer.py", line 263, in train
+    self._do_train()
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/engine/trainer.py", line 473, in _do_train
+    self._setup_train()
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/engine/trainer.py", line 454, in _setup_train
+    self._build_train_pipeline()
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/models/yolo/detect/train.py", line 207, in _build_train_pipeline
+    super()._build_train_pipeline()
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/engine/trainer.py", line 307, in _build_train_pipeline
+    self.train_loader = self.get_dataloader(
+                        ^^^^^^^^^^^^^^^^^^^^
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/models/yolo/detect/train.py", line 90, in get_dataloader
+    dataset = self.build_dataset(dataset_path, mode, batch_size)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/models/yolo/detect/train.py", line 74, in build_dataset
+    return build_yolo_dataset(self.args, img_path, batch, self.data, mode=mode, rect=mode == "val", stride=gs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/data/build.py", line 286, in build_yolo_dataset
+    return dataset(
+           ^^^^^^^^
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/data/dataset.py", line 121, in __init__
+    super().__init__(*args, channels=self.data.get("channels", 3), **kwargs)
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/data/base.py", line 155, in __init__
+    self.labels = self.get_labels()
+                  ^^^^^^^^^^^^^^^^^
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/data/dataset.py", line 307, in get_labels
+    cache, exists = self._load_or_scan_cache(cache_path, self.get_cache_hash())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/data/dataset.py", line 291, in _load_or_scan_cache
+    cache, exists = self.cache_labels(cache_path), False  # run cache ops
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/data/dataset.py", line 167, in cache_labels
+    save_dataset_cache_file(self.prefix, path, x, DATASET_CACHE_VERSION)
+  File "/ari/users/rbaran/yolo-robust/.venv/lib/python3.12/site-packages/ultralytics/data/utils.py", line 1010, in save_dataset_cache_file
+    path.unlink()  # remove *.cache file if exists
+    ^^^^^^^^^^^^^
+  File "/ari/progs/Python/Python-3.12.4-openmpi-5.0.3-gcc-11.4.0/lib/python3.12/pathlib.py", line 1342, in unlink
+    os.unlink(self)
+FileNotFoundError: [Errno 2] No such file or directory: '/ari/users/rbaran/yolo-robust/datasets/VisDrone/train/labels.cache'

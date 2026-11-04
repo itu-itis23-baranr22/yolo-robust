@@ -1,0 +1,3 @@
+timestamp, utilization.gpu [%], utilization.memory [%], memory.used [MiB], power.draw [W]
+2026/11/04 20:26:07.277, 0 %, 0 %, 1 MiB, 42.92 W
+2026/11/04 20:26:37.285, 0 %, 0 %, 693 MiB, 63.33 W
