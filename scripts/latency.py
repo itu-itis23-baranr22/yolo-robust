@@ -69,12 +69,14 @@ def measure(weights: str, imgsz: int, imgs: list, warmup: int, quantize: int, se
     finally:
         h1.remove()
         h2.remove()
-    inner = m.model
+    inner = m.model  # unfused model as loaded (parameter count)
+    run_head = net.model.model[-1]  # the predictor's own (fused) copy; nms=False sets end2end on it at runtime
     out = {
         "weights": weights,
         "imgsz": imgsz,
         "params": sum(p.numel() for p in inner.parameters()),
-        "end2end": bool(getattr(inner, "end2end", False)),
+        "end2end_runtime": bool(getattr(run_head, "end2end", False)),
+        "has_one2one_head": getattr(run_head, "one2one_cv2", None) is not None,
         "peak_allocated_mb": torch.cuda.max_memory_allocated() / 1024**2,
         "predict_args": pk,
         **{k: stats([r[k] for r in rows]) for k in ("preprocess", "inference", "postprocess", "wall", "gpu_forward_event", "n_det")},

@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-11-04T20:13:12+0300",
+  "host": "a125",
+  "python": "3.12.4",
+  "git": {
+    "commit": "e482a5badd46af755f535dbeaa40c45d61cf4502",
+    "dirty": false
+  },
+  "packages": {
+    "torch": "2.6.0+cu124",
+    "torchvision": "0.21.0+cu124",
+    "ultralytics": "8.4.202",
+    "numpy": "2.5.4",
+    "opencv": "5.0.0"
+  },
+  "requirements_lock_sha256": "ca32cd092dbb6e87d6095399f8d1c0964333eeb1622bfad2f8931debb25ea108",
+  "cuda": {
+    "torch_cuda": "12.4",
+    "cudnn": 90100,
+    "available": true
+  },
+  "gpus": [
+    {
+      "index": 0,
+      "name": "NVIDIA A100 80GB PCIe",
+      "total_memory_gb": 79.26,
+      "capability": "8.0",
+      "driver": "555.42.02"
+    }
+  ],
+  "slurm": {
+    "SLURM_JOB_ID": "555207",
+    "SLURM_JOB_NAME": "yr_e2e",
+    "SLURM_JOB_PARTITION": "gpu2dq",
+    "SLURM_JOB_ACCOUNT": "gh0002",
+    "SLURM_JOB_NODELIST": "a125",
+    "SLURM_CPUS_PER_TASK": "32",
+    "SLURM_MEM_PER_NODE": "131072"
+  },
+  "env": {
+    "YOLO_OFFLINE": "true",
+    "YOLO_AUTOINSTALL": "false",
+    "YOLO_CONFIG_DIR": "/ari/users/rbaran/yolo-robust/.ultralytics",
+    "CUBLAS_WORKSPACE_CONFIG": null,
+    "CUDA_VISIBLE_DEVICES": null
+  },
+  "seed": null,
+  "config": {
+    "weights": "/ari/users/rbaran/yolo-robust/runs/e2e/e2e_555207/E4_s0/weights/best.pt",
+    "imgsz": 960,
+    "split": "val",
+    "subset": 100,
+    "sets": [
+      "clean",
+      "noise_s3"
+    ],
+    "val_args": {
+      "conf": 0.001,
+      "iou": 0.7,
+      "max_det": 1000,
+      "nms": false,
+      "quantize": 16,
+      "rect": true,
+      "save_json": true,
+      "plots": false
+    },
+    "batch": 16,
+    "backend": "faster",
+    "corruptions_version": 1
+  },
+  "extra": {
+    "gt_counts": {
+      "images": 100,
+      "gt_boxes": 7181,
+      "ignore_regions": 253
+    },
+    "final": false
+  }
+}

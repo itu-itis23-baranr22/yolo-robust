@@ -66,8 +66,13 @@ def add_timing_callbacks(model, record: dict) -> None:
     def on_train_epoch_end(tr):
         ep["t_train"] = now() - ep["t0"]
         ep["peak"] = torch.cuda.max_memory_reserved() / 1024**3
+        ep["fresh"] = True
 
     def on_fit_epoch_end(tr):
+        # Ultralytics 8.4.202 also fires on_fit_epoch_end from final_eval() (best.pt re-validation): not an epoch
+        if not ep.pop("fresh", False):
+            record["final_eval_callbacks"] = record.get("final_eval_callbacks", 0) + 1
+            return
         record["epochs"].append(
             {
                 "epoch": tr.epoch + 1,

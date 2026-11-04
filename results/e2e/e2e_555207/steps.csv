@@ -1,0 +1,11 @@
+step,rc,elapsed_s
+pytest,0,23
+manifest,0,15
+manifest_check,0,14
+train_E3,0,101
+train_E4,0,67
+eval_y26s960_full,0,508
+eval_y26s960_backends,0,98
+eval_y11s640_sub,0,101
+eval_E4short_sub,0,21
+latency,0,30

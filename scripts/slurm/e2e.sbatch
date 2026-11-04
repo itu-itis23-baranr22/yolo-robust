@@ -24,7 +24,7 @@ export YOLO_AUTOINSTALL=false
 cd "$ROOT"
 
 TAG="e2e_$SLURM_JOB_ID"
-OUT="$ROOT/results/e2e/$SLURM_JOB_ID"
+OUT="$ROOT/results/e2e/$TAG" # train.py --short "$TAG" writes into the same directory
 EVAL="$OUT/eval"
 SMOKE="$ROOT/runs/smoke/555069"
 mkdir -p "$OUT"
