@@ -112,6 +112,13 @@ pre-existing `*.npy` files are rejected because `load_image` would then bypass `
 Robustness (`src/robustness.py`): **mPC** = mean mAP50-95 over the 15 corrupted sets, **rPC** = mPC / clean mAP50-95,
 plus per-type and per-severity breakdowns (`breakdown.csv`). The same summaries are computed for mAP50 and AP_small.
 
+Decisions taken after the Stage-3 check (approved): `max_det=1000` is kept for every model (its effect is quantified
+below); raw predictions are kept gzip-compressed after scoring (verified read-back); latency is reported as batch-1
+(primary, per the protocol) and, as a secondary number, Ultralytics' per-image val times at batch 16 on the clean set
+(`summary.json: val_speed_ms_per_img_clean`), because batch-1 eager inference is launch-bound.
+
+Training/evaluation jobs: `scripts/slurm/train_eval.sbatch` (train or resume → 16-set val evaluation → latency).
+
 ### Pipeline check (Stage 3, SLURM job 555207, 1× A100, 16 min; `results/e2e/e2e_555207/`)
 
 Smoke-level only: the evaluated checkpoints are the 2-epoch Stage-2 models, so their mAP values say nothing about

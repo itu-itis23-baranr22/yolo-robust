@@ -7,7 +7,8 @@
 Per set: Ultralytics val (conf=0.001, iou=0.7, max_det=1000, nms=False, FP16, rect batches, save_json) ->
 predictions.json (original-pixel boxes) -> src/coco_eval.py with VisDrone ignored regions.
 Outputs (small, committed): results/eval/<tag>/<split>[_subN]/{<set>.json, breakdown.csv, summary.json, meta.json}
-Raw predictions stay in runs/eval/<tag>/... (ignored by git).
+Raw predictions stay in runs/eval/<tag>/... (ignored by git) as predictions.json.gz (verified, ~11x smaller);
+--keep-raw-preds keeps the uncompressed file.
 """
 
 from __future__ import annotations
@@ -48,6 +49,21 @@ def clean_json(o):
 def dump(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(clean_json(obj), indent=2, default=str) + "\n")
+
+
+def gzip_replace(p: Path) -> Path:
+    """p -> p.gz, verified byte-identical on read-back before the uncompressed file is removed."""
+    import gzip
+    import hashlib
+
+    raw = p.read_bytes()
+    dst = p.with_name(p.name + ".gz")
+    with gzip.open(dst, "wb", compresslevel=6) as f:
+        f.write(raw)
+    with gzip.open(dst, "rb") as f:
+        assert hashlib.sha256(f.read()).digest() == hashlib.sha256(raw).digest(), f"gzip verify failed: {dst}"
+    p.unlink()
+    return dst
 
 
 def select_stems(split: str, subset: int | None) -> list[str]:
@@ -92,6 +108,7 @@ def main() -> None:
     ap.add_argument("--final", action="store_true", help="required for test-dev (Stage 6, run once)")
     ap.add_argument("--results-root", default=str(ROOT / "results" / "eval"), help="default results/eval")
     ap.add_argument("--device", default="0", help="'0' (GPU) or 'cpu' (dry runs only)")
+    ap.add_argument("--keep-raw-preds", action="store_true", help="do not gzip predictions.json after scoring")
     a = ap.parse_args()
 
     if a.split == "test-dev":
@@ -146,6 +163,8 @@ def main() -> None:
             keys = [k for k, v in out["faster"].items() if isinstance(v, float) and k != "eval_wall_s"]
             out["backend_max_abs_diff"] = max(abs(out["faster"][k] - out["pycocotools"][k]) for k in keys)
         out.update({k: v for k, v in primary.items() if k not in ("backend",)})
+        if pred_json.exists() and not a.keep_raw_preds:  # approved policy: keep raw predictions gzip'ed (~11x smaller)
+            out["predictions_json"] = str(gzip_replace(pred_json))
         per_set[s] = out
         dump(res_root / f"{s}.json", out)
         print(f"[{s}] mAP50-95={out['mAP50_95']:.4f} mAP50={out['mAP50']:.4f} AP_small={out['AP_small']:.4f} "
@@ -154,6 +173,8 @@ def main() -> None:
     RB.write_csv(res_root / "breakdown.csv", RB.breakdown_rows(per_set))
     if all(s in per_set for s in RB.ALL_SETS):
         summ = RB.summarize(per_set)
+        # secondary latency metric (approved): Ultralytics val per-image times at batch=a.batch, FP16, clean set
+        summ["val_speed_ms_per_img_clean"] = {"batch": a.batch, **per_set[RB.CLEAN]["speed_ms_per_img"]}
         dump(res_root / "summary.json", summ)
         print(f"mPC={summ['mAP50_95']['mPC']:.4f} rPC={summ['mAP50_95']['rPC']:.4f} clean={summ['mAP50_95']['clean']:.4f}")
     print(f"results: {res_root}")

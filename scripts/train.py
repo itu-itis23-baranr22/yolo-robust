@@ -153,7 +153,17 @@ def main() -> None:
 
     meta["extra"].update({"status": "completed", "wall_s": time.time() - t0, **record})
     meta["extra"]["save_dir"] = str(model.trainer.save_dir)
-    runmeta.write(meta_path if not a.resume else res_dir / f"meta_resume_{int(t0)}.json", meta)
+    if a.resume:
+        resume_file = res_dir / f"meta_resume_{int(t0)}.json"
+        runmeta.write(resume_file, meta)
+        if meta_path.exists():  # mark the original run record as finished, pointing to the resume record
+            import json
+
+            orig = json.loads(meta_path.read_text())
+            orig["extra"].update({"status": "completed", "completed_via_resume": resume_file.name})
+            runmeta.write(meta_path, orig)
+    else:
+        runmeta.write(meta_path, meta)
     for f in ("args.yaml", "results.csv"):
         src = Path(model.trainer.save_dir) / f
         if src.exists():
