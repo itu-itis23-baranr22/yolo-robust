@@ -6,7 +6,7 @@ run on the ITU UHeM cluster.
 **Research question.** Under low light, blur and noise, what improves small-object accuracy most:
 the model version (YOLO11s vs YOLO26s), the input resolution (640 vs 960), or corruption-aware training?
 
-> Status: evaluation infrastructure done (Stage 3); no experiment (E1–E5) has been trained yet.
+> Status: Stage 4 (E1–E3, seed 0) trained and evaluated on val; E4, E5 and seed repeats pending.
 > Methods, results, limitations and reproduction commands are added as stages are completed.
 > Only measured results are reported here.
 
@@ -138,6 +138,38 @@ the research question.
 - Batch-1 latency (FP16, eager PyTorch) is 8–9 ms for all three smoke models and almost independent of imgsz
   (YOLO26s inference 7.19 ms @640 vs 7.07 ms @960); CUDA-event time of the forward ≈ its CPU time, i.e. the
   measurement is kernel-launch-bound at batch 1.
+
+## Stage 4 interim results: E1–E3, seed 0, VisDrone val
+
+Jobs 555232 (E1), 555220 (E2), 555233 (E3); 1× A100 each; 100 epochs; `best.pt` = Ultralytics' best val fitness
+(0.9·mAP50-95 + 0.1·mAP50, clean val). Metrics from `src/coco_eval.py` (ignored regions, maxDets 1000).
+Files: `results/train/<run>/`, `results/eval/<run>/val/{summary.json,breakdown.csv}`, `results/latency/<run>.json`.
+
+| | E1 YOLO11s@640 | E2 YOLO26s@640 | E3 YOLO26s@960 |
+|---|---|---|---|
+| clean mAP50-95 | 0.2266 | 0.2319 | 0.2956 |
+| clean mAP50 | 0.3971 | 0.4041 | 0.4947 |
+| clean AP_small | 0.1355 | 0.1428 | 0.2076 |
+| mPC (mAP50-95) | 0.1806 | 0.1785 | 0.2269 |
+| rPC (mAP50-95) | 0.797 | 0.770 | 0.768 |
+| AP_small mPC / rPC | 0.1044 / 0.771 | 0.1056 / 0.739 | 0.1520 / 0.732 |
+| rPC underexp. / overexp. / blur / noise / low-contrast | .970 / .900 / .732 / .611 / .771 | .979 / .896 / .694 / .547 / .734 | .985 / .911 / .606 / .513 / .822 |
+| mAP50-95 at blur s3 / noise s3 | 0.0967 / 0.0858 | 0.0842 / 0.0707 | 0.0853 / 0.0777 |
+| batch-1 latency p50 / p95 (ms, FP16, conf 0.25) | 7.89 / 8.18 | 8.72 / 9.01 | 9.29 / 9.65 |
+| batch-1 pre / inference / post (ms, mean) | 1.12 / 5.81 / 0.78 | 1.11 / 7.12 / 0.29 | 1.39 / 7.14 / 0.30 |
+| batch-16 val inference (ms/img) / postprocess | 0.76 / 0.92 | 0.81 / 0.08 | 1.27 / 0.08 |
+| parameters | 9.43 M | 9.96 M | 9.96 M |
+| peak VRAM batch-1 (MB) | 63 | 63 | 77 |
+| best epoch / val fitness peak vs. epoch 100 (Ultralytics mAP50-95) | 68 / 0.221 vs 0.212 | 45 / 0.226 vs 0.219 | 48 / 0.288 vs 0.275 |
+| training time (h) / throughput (img/s) | 0.79 / 255 | 1.05 / 189 | 1.57 / 123 |
+
+Notes (single seed, so differences of a few 0.001 are not yet interpretable):
+- val mAP peaked around epochs 45–68 and declined afterwards in all three runs; `best.pt` is chosen on the same
+  val set that is reported here, so val numbers are optimistic (the same way for every model). test-dev (Stage 6)
+  gives the unbiased estimate.
+- Ultralytics drops 4 exact-duplicate box rows from the train labels (images 0000137_02220_d_0000163,
+  0000140_00118_d_0000002, 9999945_00000_d_0000114, 9999987_00000_d_0000049); val is unaffected.
+- E2 ran at commit ac551b5, E1/E3 at 6ceb1a4; the only difference is the label-cache guard (no training/eval code).
 
 ## License notes
 
