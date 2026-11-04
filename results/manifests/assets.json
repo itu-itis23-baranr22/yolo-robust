@@ -1,0 +1,20 @@
+{
+  "ultralytics": "8.4.202",
+  "files": {
+    "yolo11s.pt": {
+      "path": "/ari/users/rbaran/yolo-robust/weights/yolo11s.pt",
+      "bytes": 19313732,
+      "sha256": "85a76fe86dd8afe384648546b56a7a78580c7cb7b404fc595f97969322d502d5"
+    },
+    "yolo26s.pt": {
+      "path": "/ari/users/rbaran/yolo-robust/weights/yolo26s.pt",
+      "bytes": 20422725,
+      "sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b"
+    },
+    "Arial.ttf": {
+      "path": "/ari/users/rbaran/yolo-robust/.ultralytics/Ultralytics/Arial.ttf",
+      "bytes": 773236,
+      "sha256": "525979822591a3447cfc49d943d6f7683508e25543407871c0ed8fed05fd2bd9"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+# VisDrone2019-DET in the project layout produced by scripts/prepare_visdrone.py.
+# Train/val ONLY: test-dev is deliberately absent so it cannot be used before the
+# final frozen evaluation (Stage 6). No `download:` key -> Ultralytics never tries to fetch data.
+path: /ari/users/rbaran/yolo-robust/datasets/VisDrone
+train: train/images # 6471 images
+val: val/images # 548 images
+
+names:
+  0: pedestrian
+  1: people
+  2: bicycle
+  3: car
+  4: van
+  5: truck
+  6: tricycle
+  7: awning-tricycle
+  8: bus
+  9: motor

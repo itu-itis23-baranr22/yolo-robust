@@ -1,0 +1,17 @@
+# Environments and tool state
+.venv/
+.ultralytics/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Large artifacts (never committed)
+datasets/
+weights/
+runs/
+logs/
+*.pt
+*.onnx
+*.engine
+*.zip
+*.cache

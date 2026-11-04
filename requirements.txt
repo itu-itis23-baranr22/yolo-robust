@@ -1,0 +1,9 @@
+# Top-level dependencies. Exact resolved versions are in requirements.lock.
+# torch/torchvision are installed first from the cu124 index (see scripts/setup_env.sh).
+# albumentations is intentionally NOT installed: if importable, Ultralytics adds
+# its own blur/contrast augmentations, which would contaminate the "standard" runs.
+ultralytics==8.4.202
+faster-coco-eval
+pycocotools
+pandas
+pytest
