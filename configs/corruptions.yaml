@@ -1,0 +1,44 @@
+# Corruption definitions. FIXED BEFORE ANY EVALUATION (git history is the timestamp).
+# Do not tune these values after looking at results.
+#
+# All corruptions act on the ORIGINAL-resolution BGR uint8 image and never touch box labels.
+# Per-image randomness (blur direction, noise) comes from a per-image RNG seeded by
+# sha256("{seed}|{type}|{severity}|{image_stem}") -> identical output for identical inputs.
+# Severities were chosen a priori (ImageNet-C-inspired) to span mild -> strong.
+
+version: 1
+seed: 20261104
+reference_width: 1360 # blur length is defined at this image width and scaled by W / reference_width
+
+types:
+  underexposed:
+    # Exposure change in linear light: sRGB -> linear, multiply by 2**ev, clip, -> sRGB, 8-bit quantize.
+    param: ev
+    severities: [-1.0, -2.0, -3.0]
+  overexposed:
+    param: ev
+    severities: [1.0, 1.5, 2.0]
+  blur:
+    # Linear motion blur; direction ~ U[0, 180) deg per image; length in px at reference_width.
+    param: length_px
+    severities: [5, 9, 15]
+  noise:
+    # Additive i.i.d. Gaussian noise per pixel and channel; std in [0, 1] intensity units.
+    param: sigma
+    severities: [0.04, 0.08, 0.12]
+  low_contrast:
+    # x' = (x - mean_c) * factor + mean_c with per-channel image mean (ImageNet-C style).
+    param: factor
+    severities: [0.5, 0.35, 0.2]
+
+# Stored corrupted val set (generated once). Format decided from the measured disk estimate.
+storage:
+  format: jpg
+  jpeg_quality: 95
+
+# Training-time augmentation for E4/E5 (applied on the fly, never written to disk).
+# Same corruption families as the test sets -> reported as a limitation.
+train_augment:
+  p: 0.5 # probability that a loaded training image is corrupted
+  # type ~ uniform over the five types; parameter ~ continuous uniform between severity-1 and severity-3
+  # values (blur length rounded to an integer), applied at original resolution before resizing.
