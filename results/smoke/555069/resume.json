@@ -1,0 +1,30 @@
+{
+  "before_kill": {
+    "killed": true,
+    "child_returncode": -9,
+    "csv_rows": 1,
+    "weights": [
+      "best.pt",
+      "epoch0.pt",
+      "last.pt"
+    ],
+    "last_pt_epoch": 0
+  },
+  "after_resume": {
+    "resume_wall_s": 32.971417170003406,
+    "csv_epochs": [
+      "1",
+      "2",
+      "3"
+    ],
+    "weights": [
+      "best.pt",
+      "epoch0.pt",
+      "epoch1.pt",
+      "epoch2.pt",
+      "last.pt"
+    ],
+    "final_last_pt_epoch": -1
+  },
+  "pass": true
+}

@@ -1,0 +1,19 @@
+{
+  "weights": "/ari/users/rbaran/yolo-robust/runs/smoke/555069/tp_y26s_960/weights/best.pt",
+  "wall_s": 21.19506307700067,
+  "speed_ms_per_img": {
+    "preprocess": 0.5886538978581092,
+    "inference": 1.2497440420304013,
+    "loss": 0.00042624267164012754,
+    "postprocess": 2.3157291277800347
+  },
+  "map50_95": 0.168965675398328,
+  "map50": 0.292032824154432,
+  "predictions_json": "/ari/users/rbaran/yolo-robust/runs/smoke/555069/val_y26s_960/predictions.json",
+  "n_predictions": 171420,
+  "n_images_with_preds": 548,
+  "image_id_example": "0000001_02999_d_0000005",
+  "bbox_max_rel_extent": 1.0,
+  "bbox_beyond_image": 0,
+  "note": "1-2 epoch smoke model: mAP values are meaningless, only the pipeline is tested"
+}

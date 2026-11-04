@@ -66,7 +66,8 @@ def collect(root: Path, config: dict | None = None, seed: int | None = None, ext
     import torchvision
     import ultralytics
 
-    status = _git(root, "status", "--porcelain")
+    # tracked files only: a job's own fresh outputs (untracked) must not mark the code as modified
+    status = _git(root, "status", "--porcelain", "--untracked-files=no")
     return {
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
         "host": socket.gethostname(),

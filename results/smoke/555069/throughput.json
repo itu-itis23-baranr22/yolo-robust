@@ -1,0 +1,247 @@
+{
+  "tp_y11s_640": {
+    "weights": "/ari/users/rbaran/yolo-robust/weights/yolo11s.pt",
+    "args": {
+      "batch": 16,
+      "workers": 16,
+      "seed": 0,
+      "deterministic": true,
+      "optimizer": "SGD",
+      "lr0": 0.01,
+      "momentum": 0.937,
+      "amp": true,
+      "cache": false,
+      "plots": true,
+      "imgsz": 640,
+      "epochs": 2,
+      "fraction": 0.25
+    },
+    "total_wall_s": 46.78891211799055,
+    "epochs": [
+      {
+        "train_s": 7.979376948002027,
+        "val_s": 4.7251276319875615,
+        "iters": 102,
+        "imgs": 1618,
+        "batch": 16,
+        "it_per_s": 12.78295293789072,
+        "img_per_s": 202.772724053992,
+        "peak_reserved_gb": 7.6640625
+      },
+      {
+        "train_s": 5.392034272997989,
+        "val_s": 2.2521680780046154,
+        "iters": 102,
+        "imgs": 1618,
+        "batch": 16,
+        "it_per_s": 18.916793706373763,
+        "img_per_s": 300.0722766363995,
+        "peak_reserved_gb": 7.69140625
+      }
+    ],
+    "val_calls_s": [
+      4.7251276319875615,
+      2.2521680780046154,
+      8.79855156299891
+    ],
+    "est_full_epoch_train_s": 21.56480456153893,
+    "est_full_epoch_train_plus_val_s": 23.816972639543547,
+    "save_dir": "/ari/users/rbaran/yolo-robust/runs/smoke/555069/tp_y11s_640"
+  },
+  "tp_y26s_640": {
+    "weights": "/ari/users/rbaran/yolo-robust/weights/yolo26s.pt",
+    "args": {
+      "batch": 16,
+      "workers": 16,
+      "seed": 0,
+      "deterministic": true,
+      "optimizer": "SGD",
+      "lr0": 0.01,
+      "momentum": 0.937,
+      "amp": true,
+      "cache": false,
+      "plots": true,
+      "imgsz": 640,
+      "epochs": 2,
+      "fraction": 0.25
+    },
+    "total_wall_s": 41.3781125460082,
+    "epochs": [
+      {
+        "train_s": 9.188479308999376,
+        "val_s": 4.655538327991962,
+        "iters": 102,
+        "imgs": 1618,
+        "batch": 16,
+        "it_per_s": 11.100857559759557,
+        "img_per_s": 176.0900738401075,
+        "peak_reserved_gb": 8.587890625
+      },
+      {
+        "train_s": 7.249589140003081,
+        "val_s": 2.6913161800039234,
+        "iters": 102,
+        "imgs": 1618,
+        "batch": 16,
+        "it_per_s": 14.069762855548065,
+        "img_per_s": 223.1850617674193,
+        "peak_reserved_gb": 8.587890625
+      }
+    ],
+    "val_calls_s": [
+      4.655538327991962,
+      2.6913161800039234,
+      9.108582557993941
+    ],
+    "est_full_epoch_train_s": 28.99387597339922,
+    "est_full_epoch_train_plus_val_s": 31.685192153403143,
+    "save_dir": "/ari/users/rbaran/yolo-robust/runs/smoke/555069/tp_y26s_640"
+  },
+  "tp_y26s_960": {
+    "weights": "/ari/users/rbaran/yolo-robust/weights/yolo26s.pt",
+    "args": {
+      "batch": 16,
+      "workers": 16,
+      "seed": 0,
+      "deterministic": true,
+      "optimizer": "SGD",
+      "lr0": 0.01,
+      "momentum": 0.937,
+      "amp": true,
+      "cache": false,
+      "plots": true,
+      "imgsz": 960,
+      "epochs": 2,
+      "fraction": 0.25
+    },
+    "total_wall_s": 56.61535578100302,
+    "epochs": [
+      {
+        "train_s": 14.67548304599768,
+        "val_s": 5.982127007999225,
+        "iters": 102,
+        "imgs": 1618,
+        "batch": 16,
+        "it_per_s": 6.950367472082467,
+        "img_per_s": 110.25190754734737,
+        "peak_reserved_gb": 19.15234375
+      },
+      {
+        "train_s": 11.817033454004559,
+        "val_s": 3.7074643010128057,
+        "iters": 102,
+        "imgs": 1618,
+        "batch": 16,
+        "it_per_s": 8.631607957869852,
+        "img_per_s": 136.92099682189627,
+        "peak_reserved_gb": 19.15234375
+      }
+    ],
+    "val_calls_s": [
+      5.982127007999225,
+      3.7074643010128057,
+      10.073404009992373
+    ],
+    "est_full_epoch_train_s": 47.26083033427905,
+    "est_full_epoch_train_plus_val_s": 50.968294635291855,
+    "save_dir": "/ari/users/rbaran/yolo-robust/runs/smoke/555069/tp_y26s_960"
+  },
+  "tp_y26s_960_musgd": {
+    "weights": "/ari/users/rbaran/yolo-robust/weights/yolo26s.pt",
+    "args": {
+      "batch": 16,
+      "workers": 16,
+      "seed": 0,
+      "deterministic": true,
+      "optimizer": "MuSGD",
+      "lr0": 0.01,
+      "momentum": 0.9,
+      "amp": true,
+      "cache": false,
+      "plots": true,
+      "imgsz": 960,
+      "epochs": 2,
+      "fraction": 0.25
+    },
+    "total_wall_s": 57.2589194720058,
+    "epochs": [
+      {
+        "train_s": 16.085878939004033,
+        "val_s": 5.158472511990112,
+        "iters": 102,
+        "imgs": 1618,
+        "batch": 16,
+        "it_per_s": 6.34096528929338,
+        "img_per_s": 100.58511605957538,
+        "peak_reserved_gb": 19.173828125
+      },
+      {
+        "train_s": 12.852339827994001,
+        "val_s": 3.6051109959953465,
+        "iters": 102,
+        "imgs": 1618,
+        "batch": 16,
+        "it_per_s": 7.936298087748292,
+        "img_per_s": 125.89147358800722,
+        "peak_reserved_gb": 19.173828125
+      }
+    ],
+    "val_calls_s": [
+      5.158472511990112,
+      3.6051109959953465,
+      10.104207023992785
+    ],
+    "est_full_epoch_train_s": 51.40141596226773,
+    "est_full_epoch_train_plus_val_s": 55.00652695826307,
+    "save_dir": "/ari/users/rbaran/yolo-robust/runs/smoke/555069/tp_y26s_960_musgd"
+  },
+  "tp_y26s_960_b32": {
+    "weights": "/ari/users/rbaran/yolo-robust/weights/yolo26s.pt",
+    "args": {
+      "batch": 32,
+      "workers": 16,
+      "seed": 0,
+      "deterministic": true,
+      "optimizer": "SGD",
+      "lr0": 0.01,
+      "momentum": 0.937,
+      "amp": true,
+      "cache": false,
+      "plots": true,
+      "imgsz": 960,
+      "epochs": 2,
+      "fraction": 0.25
+    },
+    "total_wall_s": 55.641144838999026,
+    "epochs": [
+      {
+        "train_s": 14.71272746399336,
+        "val_s": 6.484627097001066,
+        "iters": 51,
+        "imgs": 1618,
+        "batch": 32,
+        "it_per_s": 3.4663865095586748,
+        "img_per_s": 109.97281122482228,
+        "peak_reserved_gb": 37.984375
+      },
+      {
+        "train_s": 10.799682238008245,
+        "val_s": 3.788046434012358,
+        "iters": 51,
+        "imgs": 1618,
+        "batch": 32,
+        "it_per_s": 4.722361165452752,
+        "img_per_s": 149.8192228569128,
+        "peak_reserved_gb": 45.974609375
+      }
+    ],
+    "val_calls_s": [
+      6.484627097001066,
+      3.788046434012358,
+      10.259054023001227
+    ],
+    "est_full_epoch_train_s": 43.19205424113186,
+    "est_full_epoch_train_plus_val_s": 46.98010067514422,
+    "save_dir": "/ari/users/rbaran/yolo-robust/runs/smoke/555069/tp_y26s_960_b32"
+  }
+}
