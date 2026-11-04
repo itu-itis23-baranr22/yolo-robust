@@ -1,8 +1,12 @@
+import os
+from pathlib import Path
+
 import pytest
 
 from visdrone import (
     VDBox,
     convert_boxes,
+    eval_boxes,
     format_rows,
     parse_annotation_text,
     parse_line,
@@ -60,3 +64,51 @@ def test_reference_maps_others_to_class_10():
 
 def test_format_rows():
     assert format_rows([(3, 0.4, 0.3, 0.2, 0.2)]) == "3 0.400000 0.300000 0.200000 0.200000\n"
+
+
+RULES_TEXT = "\n".join(
+    [
+        "10,10,20,10,1,4,0,0",
+        "0,0,30,30,0,0,0,0",
+        "5,5,5,5,0,1,0,0",
+        "40,10,10,10,1,11,0,0",
+        "90,40,20,20,1,1,0,0",
+        "100,10,5,5,1,2,0,0",
+        "95,45,20,20,0,0,0,0",
+    ]
+)
+
+
+def _normalized(kept, W, H):
+    return [(c, (x + w / 2) / W, (y + h / 2) / H, w / W, h / H) for c, x, y, w, h in kept]
+
+
+def test_eval_boxes_match_training_labels_and_collect_ignores():
+    W, H = 100, 50
+    boxes = parse_annotation_text(RULES_TEXT)
+    kept, ignore = eval_boxes(boxes, W, H)
+    rows, _ = convert_boxes(boxes, W, H)
+    assert [r[0] for r in rows] == [k[0] for k in kept]
+    for a, b in zip(rows, _normalized(kept, W, H)):
+        assert a[1:] == pytest.approx(b[1:], abs=1e-12)
+    assert kept == [(3, 10, 10, 20, 10), (0, 90, 40, 10, 10)]
+    # ignored region, score-0 box, "others" box, and the clipped ignored region (95,45 -> 5x5)
+    assert ignore == [(0, 0, 30, 30), (5, 5, 5, 5), (40, 10, 10, 10), (95, 45, 5, 5)]
+
+
+VAL = Path(os.environ.get("ROOT", Path(__file__).resolve().parents[1])) / "datasets" / "VisDrone" / "val"
+
+
+@pytest.mark.skipif(not (VAL / "annotations").is_dir(), reason="VisDrone val not present")
+def test_eval_boxes_equal_written_labels_on_real_val():
+    from PIL import Image
+
+    files = sorted((VAL / "annotations").glob("*.txt"))[:60]
+    for f in files:
+        with Image.open(VAL / "images" / f"{f.stem}.jpg") as im:
+            W, H = im.size
+        kept, _ = eval_boxes(parse_annotation_text(f.read_text()), W, H)
+        written = [tuple(float(v) for v in ln.split()) for ln in (VAL / "labels" / f.name).read_text().splitlines()]
+        assert len(written) == len(kept), f.name
+        for a, b in zip(written, _normalized(kept, W, H)):
+            assert int(a[0]) == b[0] and a[1:] == pytest.approx(b[1:], abs=2e-6), f.name  # labels use 6 decimals

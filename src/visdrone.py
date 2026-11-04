@@ -110,6 +110,38 @@ def convert_boxes(boxes: list[VDBox], img_w: int, img_h: int) -> tuple[list[tupl
     return rows, stats
 
 
+def _clip_xywh(b: VDBox, img_w: int, img_h: int) -> tuple[int, int, int, int] | None:
+    x1, y1 = max(0, b.x), max(0, b.y)
+    x2, y2 = min(img_w, b.x + b.w), min(img_h, b.y + b.h)
+    if x2 <= x1 or y2 <= y1:
+        return None
+    return x1, y1, x2 - x1, y2 - y1
+
+
+def eval_boxes(
+    boxes: list[VDBox], img_w: int, img_h: int
+) -> tuple[list[tuple[int, int, int, int, int]], list[tuple[int, int, int, int]]]:
+    """Ground truth for COCO-style evaluation, in ORIGINAL image pixels.
+
+    Returns (kept, ignore):
+      kept   = [(cls, x, y, w, h)]: exactly the boxes `convert_boxes` writes as YOLO labels (same rules, same clipping).
+      ignore = [(x, y, w, h)]: class-agnostic ignored areas = every row that is not evaluated (score == 0,
+               category 0 "ignored region", category 11 "others"), clipped; zero-area rows dropped.
+    """
+    kept, ignore = [], []
+    for b in boxes:
+        xywh = _clip_xywh(b, img_w, img_h)
+        if b.score == 0 or b.category in (IGNORED_CATEGORY, OTHERS_CATEGORY):
+            if xywh is not None:
+                ignore.append(xywh)
+            continue
+        if not 1 <= b.category <= NUM_CLASSES:
+            raise ValueError(f"unknown category {b.category}")
+        if xywh is not None:
+            kept.append((b.category - 1, *xywh))
+    return kept, ignore
+
+
 def ultralytics_reference_rows(boxes: list[VDBox], img_w: int, img_h: int) -> list[tuple[int, float, float, float, float]]:
     """Rows exactly as `visdrone2yolo` in ultralytics 8.4.202 cfg/datasets/VisDrone.yaml would write them
     (skip score == 0, cls = category - 1, no clipping). Used only for comparison."""

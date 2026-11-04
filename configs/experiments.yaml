@@ -1,0 +1,47 @@
+# Experiment matrix. Only the studied variable differs between compared runs; everything in `common` is shared.
+# Hyper-parameters approved after the Stage-2 smoke test (job 555069): MuSGD lr0 0.01 / momentum 0.9,
+# nms=False (YOLO26 NMS-free head; YOLO11 has none and falls back to NMS), max_det=1000, FP16 evaluation.
+# epochs/batch from the Stage-2 proposal; full runs start only after explicit approval (Stage 4).
+
+common:
+  data: configs/visdrone.yaml
+  epochs: 100
+  patience: 100 # no early stopping: every run has the same length
+  batch: 16
+  workers: 16
+  optimizer: MuSGD
+  lr0: 0.01
+  momentum: 0.9
+  amp: true # training-time val then runs in FP16, same as the standalone FP16 evaluation
+  deterministic: true
+  close_mosaic: 10
+  save_period: 10
+  cache: false # required by on-the-fly corruption (src/robust_data.py)
+  max_det: 1000
+  nms: false
+  plots: true
+
+experiments:
+  E1:
+    model: yolo11s.pt
+    imgsz: 640
+    augment: standard
+  E2:
+    model: yolo26s.pt
+    imgsz: 640
+    augment: standard
+  E3:
+    model: yolo26s.pt
+    imgsz: 960
+    augment: standard
+  E4:
+    model: yolo26s.pt
+    imgsz: 960
+    augment: corruption
+  # Optional, only after E1-E4 and approval. Head has no pretrained weights (360/902 items transfer).
+  E5:
+    model: yolo26s-p2.yaml
+    pretrained: yolo26s.pt
+    imgsz: 960
+    augment: corruption
+    optional: true
