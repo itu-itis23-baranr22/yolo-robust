@@ -1,0 +1,1519 @@
+{
+  "meta": {
+    "timestamp": "2026-11-05T14:58:56+0300",
+    "host": "a129",
+    "python": "3.12.4",
+    "git": {
+      "commit": "f051d16d9ca464dc30e81ed46f7bc64ebd601452",
+      "dirty": false
+    },
+    "packages": {
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "ultralytics": "8.4.202",
+      "numpy": "2.5.4",
+      "opencv": "5.0.0"
+    },
+    "requirements_lock_sha256": "ca32cd092dbb6e87d6095399f8d1c0964333eeb1622bfad2f8931debb25ea108",
+    "cuda": {
+      "torch_cuda": "12.4",
+      "cudnn": 90100,
+      "available": true
+    },
+    "gpus": [
+      {
+        "index": 0,
+        "name": "NVIDIA A100 80GB PCIe",
+        "total_memory_gb": 79.26,
+        "capability": "8.0",
+        "driver": "555.42.02"
+      }
+    ],
+    "slurm": {
+      "SLURM_JOB_ID": "556084",
+      "SLURM_JOB_NAME": "yr_latall",
+      "SLURM_JOB_PARTITION": "gpu2dq",
+      "SLURM_JOB_ACCOUNT": "gh0002",
+      "SLURM_JOB_NODELIST": "a129",
+      "SLURM_CPUS_PER_TASK": "32",
+      "SLURM_MEM_PER_NODE": "131072"
+    },
+    "env": {
+      "YOLO_OFFLINE": "true",
+      "YOLO_AUTOINSTALL": "false",
+      "YOLO_CONFIG_DIR": "/ari/users/rbaran/yolo-robust/.ultralytics",
+      "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+      "CUDA_VISIBLE_DEVICES": null
+    },
+    "seed": null,
+    "config": {
+      "model": [
+        "E1_s0=/ari/users/rbaran/yolo-robust/runs/train/E1_s0/weights/best.pt:640",
+        "E1_s1=/ari/users/rbaran/yolo-robust/runs/train/E1_s1/weights/best.pt:640",
+        "E1_s2=/ari/users/rbaran/yolo-robust/runs/train/E1_s2/weights/best.pt:640",
+        "E2_s0=/ari/users/rbaran/yolo-robust/runs/train/E2_s0/weights/best.pt:640",
+        "E2_s1=/ari/users/rbaran/yolo-robust/runs/train/E2_s1/weights/best.pt:640",
+        "E2_s2=/ari/users/rbaran/yolo-robust/runs/train/E2_s2/weights/best.pt:640",
+        "E3_s0=/ari/users/rbaran/yolo-robust/runs/train/E3_s0/weights/best.pt:960",
+        "E4_s0=/ari/users/rbaran/yolo-robust/runs/train/E4_s0/weights/best.pt:960",
+        "E4_s1=/ari/users/rbaran/yolo-robust/runs/train/E4_s1/weights/best.pt:960",
+        "E4_s2=/ari/users/rbaran/yolo-robust/runs/train/E4_s2/weights/best.pt:960",
+        "E5_s0=/ari/users/rbaran/yolo-robust/runs/train/E5_s0/weights/best.pt:960",
+        "E5_s1=/ari/users/rbaran/yolo-robust/runs/train/E5_s1/weights/best.pt:960",
+        "E5_s2=/ari/users/rbaran/yolo-robust/runs/train/E5_s2/weights/best.pt:960"
+      ],
+      "tag": "all_556084_fwd",
+      "n": 300,
+      "warmup": 50,
+      "quantize": 16,
+      "settings": "deploy,eval",
+      "out": null
+    },
+    "extra": {
+      "settings": {
+        "deploy": {
+          "conf": 0.25,
+          "max_det": 300
+        },
+        "eval": {
+          "conf": 0.001,
+          "max_det": 1000
+        }
+      },
+      "n_images": 300,
+      "unit": "ms"
+    }
+  },
+  "results": {
+    "E1_s0_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E1_s0/weights/best.pt",
+      "imgsz": 640,
+      "params": 9431662,
+      "end2end_runtime": false,
+      "has_one2one_head": false,
+      "peak_allocated_mb": 63.4521484375,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 2.015973633329319,
+        "p50": 1.7645120000793213,
+        "p95": 2.691588950011692,
+        "n": 300
+      },
+      "inference": {
+        "mean": 5.918062683332816,
+        "p50": 5.899744500027282,
+        "p95": 5.938902550008152,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.7969634866678158,
+        "p50": 0.7947065000166731,
+        "p95": 0.8134730500046317,
+        "n": 300
+      },
+      "wall": {
+        "mean": 9.004863280000185,
+        "p50": 8.726410999997825,
+        "p95": 9.681219700036081,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 5.853180592854818,
+        "p50": 5.834752082824707,
+        "p95": 5.87279372215271,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 53.586666666666666,
+        "p50": 52.0,
+        "p95": 105.05000000000001,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.73099980332995
+    },
+    "E1_s0_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E1_s0/weights/best.pt",
+      "imgsz": 640,
+      "params": 9431662,
+      "end2end_runtime": false,
+      "has_one2one_head": false,
+      "peak_allocated_mb": 80.76708984375,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 0.9294860933312066,
+        "p50": 0.88351149997834,
+        "p95": 1.3180776499439162,
+        "n": 300
+      },
+      "inference": {
+        "mean": 5.908881906669497,
+        "p50": 5.886435000036272,
+        "p95": 5.961428200015462,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.8427348099996834,
+        "p50": 0.834931999975197,
+        "p95": 0.9051040000144895,
+        "n": 300
+      },
+      "wall": {
+        "mean": 7.949603490005757,
+        "p50": 7.870902499973909,
+        "p95": 8.373718650000228,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 5.844991993904114,
+        "p50": 5.8224639892578125,
+        "p95": 5.876019096374512,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 457.13,
+        "p50": 465.5,
+        "p95": 740.2000000000003,
+        "n": 300
+      },
+      "sum_of_stages_mean": 7.681102810000387
+    },
+    "E1_s1_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E1_s1/weights/best.pt",
+      "imgsz": 640,
+      "params": 9431662,
+      "end2end_runtime": false,
+      "has_one2one_head": false,
+      "peak_allocated_mb": 99.87744140625,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 1.0599346166645773,
+        "p50": 1.0430120000819443,
+        "p95": 1.3206949499874554,
+        "n": 300
+      },
+      "inference": {
+        "mean": 6.212896196673607,
+        "p50": 5.889948499998354,
+        "p95": 5.9275063499342195,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.7871374566677029,
+        "p50": 0.7880015000409912,
+        "p95": 0.8042633000172827,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.327900430000454,
+        "p50": 7.985342500035131,
+        "p95": 8.27895589993659,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 6.149266764322917,
+        "p50": 5.826560020446777,
+        "p95": 5.863423824310303,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 52.63,
+        "p50": 52.0,
+        "p95": 108.10000000000002,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.059968270005887
+    },
+    "E1_s1_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E1_s1/weights/best.pt",
+      "imgsz": 640,
+      "params": 9431662,
+      "end2end_runtime": false,
+      "has_one2one_head": false,
+      "peak_allocated_mb": 83.1689453125,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 1.0411154766654818,
+        "p50": 1.030596000020978,
+        "p95": 1.322753000067678,
+        "n": 300
+      },
+      "inference": {
+        "mean": 5.890420240000746,
+        "p50": 5.873357499979193,
+        "p95": 5.914153299931968,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.8439307066638927,
+        "p50": 0.833478999993531,
+        "p95": 0.8950128499748189,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.044666403333926,
+        "p50": 8.004373999995096,
+        "p95": 8.367032850009082,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 5.826560002962748,
+        "p50": 5.810175895690918,
+        "p95": 5.850316762924194,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 461.47,
+        "p50": 473.0,
+        "p95": 759.5500000000002,
+        "n": 300
+      },
+      "sum_of_stages_mean": 7.775466423330121
+    },
+    "E1_s2_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E1_s2/weights/best.pt",
+      "imgsz": 640,
+      "params": 9431662,
+      "end2end_runtime": false,
+      "has_one2one_head": false,
+      "peak_allocated_mb": 96.1494140625,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 0.944258089999721,
+        "p50": 0.8979840000620243,
+        "p95": 1.311229549997961,
+        "n": 300
+      },
+      "inference": {
+        "mean": 5.92645025667025,
+        "p50": 5.92666650004503,
+        "p95": 5.952170600033924,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.7893929766707212,
+        "p50": 0.7912394999607386,
+        "p95": 0.8039520499380615,
+        "n": 300
+      },
+      "wall": {
+        "mean": 7.927201689999113,
+        "p50": 7.881045999965863,
+        "p95": 8.257267950006053,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 5.862959785461426,
+        "p50": 5.863423824310303,
+        "p95": 5.889023780822754,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 51.223333333333336,
+        "p50": 51.0,
+        "p95": 98.05000000000001,
+        "n": 300
+      },
+      "sum_of_stages_mean": 7.660101323340693
+    },
+    "E1_s2_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E1_s2/weights/best.pt",
+      "imgsz": 640,
+      "params": 9431662,
+      "end2end_runtime": false,
+      "has_one2one_head": false,
+      "peak_allocated_mb": 106.447265625,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 0.8664524899980582,
+        "p50": 0.8775875000424094,
+        "p95": 0.9086746500031495,
+        "n": 300
+      },
+      "inference": {
+        "mean": 5.92551290666961,
+        "p50": 5.9241189999852395,
+        "p95": 5.949629450054772,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.8348836533358887,
+        "p50": 0.8328434999498313,
+        "p95": 0.8833572499895581,
+        "n": 300
+      },
+      "wall": {
+        "mean": 7.893657993334197,
+        "p50": 7.8970485000127155,
+        "p95": 7.9703828000617705,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 5.862082564036052,
+        "p50": 5.860863924026489,
+        "p95": 5.886003184318542,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 448.3,
+        "p50": 457.0,
+        "p95": 739.2,
+        "n": 300
+      },
+      "sum_of_stages_mean": 7.626849050003557
+    },
+    "E2_s0_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E2_s0/weights/best.pt",
+      "imgsz": 640,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 114.919921875,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 1.1082309899961729,
+        "p50": 1.0422980000157622,
+        "p95": 1.3234454000439655,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.143742236666715,
+        "p50": 7.123522500023682,
+        "p95": 7.186630600057242,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2926505666664525,
+        "p50": 0.2885790000277666,
+        "p95": 0.2963412499809692,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.830015249996373,
+        "p50": 8.75677250002127,
+        "p95": 9.03996525003663,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 7.079819947878519,
+        "p50": 7.059967994689941,
+        "p95": 7.124070525169373,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 47.92666666666667,
+        "p50": 46.5,
+        "p95": 95.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.54462379332934
+    },
+    "E2_s0_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E2_s0/weights/best.pt",
+      "imgsz": 640,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 62.83154296875,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 0.8774065633360806,
+        "p50": 0.8792670000161706,
+        "p95": 0.9414311500563599,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.15379124333064,
+        "p50": 7.1467699999629986,
+        "p95": 7.19501104992446,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.290064703333807,
+        "p50": 0.28861349994713237,
+        "p95": 0.29535814991845655,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.609341263330256,
+        "p50": 8.595087500054888,
+        "p95": 8.733765050033071,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 7.090657265981038,
+        "p50": 7.0830078125,
+        "p95": 7.132211375236511,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 878.0133333333333,
+        "p50": 1000.0,
+        "p95": 1000.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.321262510000528
+    },
+    "E2_s1_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E2_s1/weights/best.pt",
+      "imgsz": 640,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 81.6806640625,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 1.1991092800011909,
+        "p50": 1.1301695000156542,
+        "p95": 1.415009700048131,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.130755393329006,
+        "p50": 7.122744999946917,
+        "p95": 7.1607746499978475,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2894045633350591,
+        "p50": 0.2875559999893085,
+        "p95": 0.2958364499988875,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.906350116663665,
+        "p50": 8.834368499947232,
+        "p95": 9.135985449910322,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 7.067497806549072,
+        "p50": 7.059455871582031,
+        "p95": 7.09544951915741,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 45.556666666666665,
+        "p50": 45.0,
+        "p95": 89.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.619269236665257
+    },
+    "E2_s1_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E2_s1/weights/best.pt",
+      "imgsz": 640,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 94.1787109375,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 0.866539900000968,
+        "p50": 0.8781279999539038,
+        "p95": 0.9109672499789667,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.154354463334585,
+        "p50": 7.153743999992912,
+        "p95": 7.187454349974587,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.28897881666125613,
+        "p50": 0.287527000011778,
+        "p95": 0.29484814993452346,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.59586085666706,
+        "p50": 8.600362000095174,
+        "p95": 8.660609699956012,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 7.091216956774394,
+        "p50": 7.090176105499268,
+        "p95": 7.123046278953552,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 866.2133333333334,
+        "p50": 1000.0,
+        "p95": 1000.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.309873179996808
+    },
+    "E2_s2_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E2_s2/weights/best.pt",
+      "imgsz": 640,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 108.68408203125,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 0.8666910500035859,
+        "p50": 0.8793394999884185,
+        "p95": 0.9085515999743166,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.1253451100005805,
+        "p50": 7.125454000004083,
+        "p95": 7.15464629993221,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.28877802000200364,
+        "p50": 0.2872964999482974,
+        "p95": 0.29413964995228525,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.567185169999902,
+        "p50": 8.57545899998513,
+        "p95": 8.628430949977428,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 7.062159350713094,
+        "p50": 7.062528133392334,
+        "p95": 7.091251087188721,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 45.54,
+        "p50": 45.0,
+        "p95": 87.05000000000001,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.28081418000617
+    },
+    "E2_s2_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E2_s2/weights/best.pt",
+      "imgsz": 640,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 62.83154296875,
+      "predict_args": {
+        "imgsz": 640,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 0.867566326665307,
+        "p50": 0.8799445000136075,
+        "p95": 0.913745200006133,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.1527494133378395,
+        "p50": 7.149839500016242,
+        "p95": 7.186116049956581,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2894202633334923,
+        "p50": 0.2879444999734915,
+        "p95": 0.2946491500438242,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.5952101500042,
+        "p50": 8.595603500054949,
+        "p95": 8.653562450047048,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 7.0894865131378175,
+        "p50": 7.086080074310303,
+        "p95": 7.123046278953552,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 880.3066666666666,
+        "p50": 1000.0,
+        "p95": 1000.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.309736003336639
+    },
+    "E3_s0_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E3_s0/weights/best.pt",
+      "imgsz": 960,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 94.2880859375,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 1.1109788766718036,
+        "p50": 1.40497949996643,
+        "p95": 1.4332531499462675,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.063046319997284,
+        "p50": 7.0636394999610275,
+        "p95": 7.090301149946754,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2908389299989267,
+        "p50": 0.2894709999168299,
+        "p95": 0.296572300032949,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.747633899996194,
+        "p50": 9.0351850000161,
+        "p95": 9.077193850038157,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 6.999797755877177,
+        "p50": 7.000063896179199,
+        "p95": 7.02566385269165,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 53.89666666666667,
+        "p50": 53.0,
+        "p95": 106.15000000000003,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.464864126668013
+    },
+    "E3_s0_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E3_s0/weights/best.pt",
+      "imgsz": 960,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 110.8955078125,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 1.0913950300035442,
+        "p50": 1.3880570000424086,
+        "p95": 1.4134455000316848,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.0385489200005695,
+        "p50": 7.034777499939082,
+        "p95": 7.0723352499669545,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2900872866647812,
+        "p50": 0.28824849994180113,
+        "p95": 0.2960028500012868,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.705122823333417,
+        "p50": 8.989585000051648,
+        "p95": 9.042278800029635,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 6.975245655377706,
+        "p50": 6.9713921546936035,
+        "p95": 7.009331393241882,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 865.1866666666666,
+        "p50": 1000.0,
+        "p95": 1000.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.420031236668894
+    },
+    "E4_s0_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E4_s0/weights/best.pt",
+      "imgsz": 960,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 77.08251953125,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 1.1849699933369113,
+        "p50": 1.3919710000322993,
+        "p95": 1.8490262500392873,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.046000173333671,
+        "p50": 7.023185999969428,
+        "p95": 7.061400049940403,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2887455133346369,
+        "p50": 0.2870370000209732,
+        "p95": 0.29478230001132033,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.80453553666598,
+        "p50": 8.98022299998047,
+        "p95": 9.43556289995513,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 6.983403531710307,
+        "p50": 6.960127830505371,
+        "p95": 6.999040126800537,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 54.42,
+        "p50": 54.0,
+        "p95": 106.10000000000002,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.51971568000522
+    },
+    "E4_s0_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E4_s0/weights/best.pt",
+      "imgsz": 960,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 95.52490234375,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 1.2666645733327186,
+        "p50": 1.5471434999767553,
+        "p95": 1.8749435499216816,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.015918013330899,
+        "p50": 7.007803000021795,
+        "p95": 7.0580785000288415,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.28823291666374945,
+        "p50": 0.2868189999958304,
+        "p95": 0.29480520002493904,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.855262953336478,
+        "p50": 9.116130999984762,
+        "p95": 9.46486044999233,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 6.952523091634115,
+        "p50": 6.944767951965332,
+        "p95": 6.99089925289154,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 853.1366666666667,
+        "p50": 1000.0,
+        "p95": 1000.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.570815503327369
+    },
+    "E4_s1_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E4_s1/weights/best.pt",
+      "imgsz": 960,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 112.09326171875,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 1.0939929800000907,
+        "p50": 1.3948005000088415,
+        "p95": 1.4174802999775693,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.034955463332911,
+        "p50": 7.029637499954333,
+        "p95": 7.074393550021796,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2907568466703954,
+        "p50": 0.2875255000276411,
+        "p95": 0.29468875002294226,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.704623523333717,
+        "p50": 8.992669500003103,
+        "p95": 9.053855050029824,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 6.972224849065145,
+        "p50": 6.967296123504639,
+        "p95": 7.012351989746094,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 54.086666666666666,
+        "p50": 53.5,
+        "p95": 108.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.419705290003398
+    },
+    "E4_s1_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E4_s1/weights/best.pt",
+      "imgsz": 960,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 129.84716796875,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 1.106764276667415,
+        "p50": 1.4032390000124906,
+        "p95": 1.4289821500085509,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.064882076666663,
+        "p50": 7.057760500003951,
+        "p95": 7.088760549959261,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.29039473666671256,
+        "p50": 0.2888349999921047,
+        "p95": 0.29570754998076154,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.746468626664713,
+        "p50": 9.028706500032513,
+        "p95": 9.073934150057994,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 7.0015487957000735,
+        "p50": 6.995455980300903,
+        "p95": 7.023667049407959,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 850.0166666666667,
+        "p50": 1000.0,
+        "p95": 1000.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.46204109000079
+    },
+    "E4_s2_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E4_s2/weights/best.pt",
+      "imgsz": 960,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 77.08251953125,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 1.3589896500009975,
+        "p50": 1.5558595000584319,
+        "p95": 1.8840736999209184,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.061891423324293,
+        "p50": 7.0584464999683405,
+        "p95": 7.0937763499898665,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2910666166686345,
+        "p50": 0.2895970000054149,
+        "p95": 0.2968534500212172,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.997509126666046,
+        "p50": 9.182653499976823,
+        "p95": 9.53467420006291,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 6.999333561261495,
+        "p50": 6.995967864990234,
+        "p95": 7.031859111785889,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 53.016666666666666,
+        "p50": 51.5,
+        "p95": 102.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.711947689993925
+    },
+    "E4_s2_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E4_s2/weights/best.pt",
+      "imgsz": 960,
+      "params": 9955604,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 95.52490234375,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 1.0984145466697253,
+        "p50": 1.4009115000135353,
+        "p95": 1.426535350060476,
+        "n": 300
+      },
+      "inference": {
+        "mean": 7.071102556662936,
+        "p50": 7.068015999948329,
+        "p95": 7.112543250099179,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.29131450332935555,
+        "p50": 0.2895349999789687,
+        "p95": 0.29794404993026546,
+        "n": 300
+      },
+      "wall": {
+        "mean": 8.744522303336074,
+        "p50": 9.021856500055492,
+        "p95": 9.09807660003139,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 7.008242341677348,
+        "p50": 7.005184173583984,
+        "p95": 7.0502400398254395,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 868.97,
+        "p50": 1000.0,
+        "p95": 1000.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 8.460831606662016
+    },
+    "E5_s0_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E5_s0/weights/best.pt",
+      "imgsz": 960,
+      "params": 9668144,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 136.60302734375,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 1.1847136333305268,
+        "p50": 1.5361064999979135,
+        "p95": 1.5504951499963227,
+        "n": 300
+      },
+      "inference": {
+        "mean": 8.573871146662668,
+        "p50": 8.568332500033193,
+        "p95": 8.613299199993207,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2923868866704045,
+        "p50": 0.29092349996062694,
+        "p95": 0.2983250499710266,
+        "n": 300
+      },
+      "wall": {
+        "mean": 10.336792179996337,
+        "p50": 10.657205499967404,
+        "p95": 10.722938299988982,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 8.511027173995972,
+        "p50": 8.50534439086914,
+        "p95": 8.550553369522095,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 53.99,
+        "p50": 53.0,
+        "p95": 105.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 10.0509716666636
+    },
+    "E5_s0_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E5_s0/weights/best.pt",
+      "imgsz": 960,
+      "params": 9668144,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 101.7578125,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 1.0884845833307584,
+        "p50": 1.3881624999498854,
+        "p95": 1.413720449926359,
+        "n": 300
+      },
+      "inference": {
+        "mean": 8.586236816665481,
+        "p50": 8.57840049997094,
+        "p95": 8.641821549912265,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2902249000010215,
+        "p50": 0.28880700000399884,
+        "p95": 0.2958941500310175,
+        "n": 300
+      },
+      "wall": {
+        "mean": 10.251645073335567,
+        "p50": 10.531877999937933,
+        "p95": 10.586816000034105,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 8.52348589261373,
+        "p50": 8.516096115112305,
+        "p95": 8.579071998596191,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 888.1566666666666,
+        "p50": 1000.0,
+        "p95": 1000.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 9.964946299997262
+    },
+    "E5_s1_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E5_s1/weights/best.pt",
+      "imgsz": 960,
+      "params": 9668144,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 114.47314453125,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 1.0899505666649627,
+        "p50": 1.3903729999924508,
+        "p95": 1.41648640008043,
+        "n": 300
+      },
+      "inference": {
+        "mean": 8.585551080002082,
+        "p50": 8.584725999980947,
+        "p95": 8.624797300012688,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2931837499935834,
+        "p50": 0.29138349998447666,
+        "p95": 0.299567549927815,
+        "n": 300
+      },
+      "wall": {
+        "mean": 10.254402516661685,
+        "p50": 10.542495499976212,
+        "p95": 10.597369600003503,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 8.522345784505209,
+        "p50": 8.521727561950684,
+        "p95": 8.557618808746337,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 54.833333333333336,
+        "p50": 54.0,
+        "p95": 107.05000000000001,
+        "n": 300
+      },
+      "sum_of_stages_mean": 9.968685396660627
+    },
+    "E5_s1_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E5_s1/weights/best.pt",
+      "imgsz": 960,
+      "params": 9668144,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 133.38818359375,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 1.0893863233362329,
+        "p50": 1.3872725000396713,
+        "p95": 1.4158077000047342,
+        "n": 300
+      },
+      "inference": {
+        "mean": 8.593064566669,
+        "p50": 8.596762499962551,
+        "p95": 8.648145099959947,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.29237917666061247,
+        "p50": 0.2910095000174806,
+        "p95": 0.2975982999430471,
+        "n": 300
+      },
+      "wall": {
+        "mean": 10.259629766672257,
+        "p50": 10.514784500003316,
+        "p95": 10.621552850017224,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 8.530309130350748,
+        "p50": 8.535039901733398,
+        "p95": 8.584192276000977,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 881.16,
+        "p50": 1000.0,
+        "p95": 1000.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 9.974830066665845
+    },
+    "E5_s2_deploy": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E5_s2/weights/best.pt",
+      "imgsz": 960,
+      "params": 9668144,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 101.73828125,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.25,
+        "max_det": 300
+      },
+      "preprocess": {
+        "mean": 1.095754073335608,
+        "p50": 1.395337999952062,
+        "p95": 1.421226299942191,
+        "n": 300
+      },
+      "inference": {
+        "mean": 8.589746176664903,
+        "p50": 8.589183000026424,
+        "p95": 8.620038000020713,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2903788000037366,
+        "p50": 0.2889839999511423,
+        "p95": 0.29597775010188343,
+        "n": 300
+      },
+      "wall": {
+        "mean": 10.262628223336682,
+        "p50": 10.555261499973767,
+        "p95": 10.600288099982436,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 8.527298555374145,
+        "p50": 8.526847839355469,
+        "p95": 8.556595468521119,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 55.77,
+        "p50": 54.0,
+        "p95": 109.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 9.975879050004247
+    },
+    "E5_s2_eval": {
+      "weights": "/ari/users/rbaran/yolo-robust/runs/train/E5_s2/weights/best.pt",
+      "imgsz": 960,
+      "params": 9668144,
+      "end2end_runtime": true,
+      "has_one2one_head": true,
+      "peak_allocated_mb": 121.22705078125,
+      "predict_args": {
+        "imgsz": 960,
+        "quantize": 16,
+        "iou": 0.7,
+        "nms": false,
+        "device": 0,
+        "verbose": false,
+        "conf": 0.001,
+        "max_det": 1000
+      },
+      "preprocess": {
+        "mean": 1.101434933332257,
+        "p50": 1.3933265000218853,
+        "p95": 1.4196596500482883,
+        "n": 300
+      },
+      "inference": {
+        "mean": 8.596791493331844,
+        "p50": 8.59700649999695,
+        "p95": 8.62808400005406,
+        "n": 300
+      },
+      "postprocess": {
+        "mean": 0.2909936166652945,
+        "p50": 0.2893664999987777,
+        "p95": 0.2969506000169986,
+        "n": 300
+      },
+      "wall": {
+        "mean": 10.27674683666722,
+        "p50": 10.555982999960634,
+        "p95": 10.61698519993115,
+        "n": 300
+      },
+      "gpu_forward_event": {
+        "mean": 8.533913580576579,
+        "p50": 8.534015655517578,
+        "p95": 8.564787530899048,
+        "n": 300
+      },
+      "n_det": {
+        "mean": 879.8833333333333,
+        "p50": 1000.0,
+        "p95": 1000.0,
+        "n": 300
+      },
+      "sum_of_stages_mean": 9.989220043329397
+    }
+  }
+}

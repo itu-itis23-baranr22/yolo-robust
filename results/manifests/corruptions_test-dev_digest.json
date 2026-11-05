@@ -1,0 +1,25 @@
+{
+  "split": "test-dev",
+  "images": 1610,
+  "sets": 16,
+  "rows": 25760,
+  "corruptions_yaml_sha256": "521d8c9c873998fe181a554e8f2bce13eba1b5810daac086116fa594c158588b",
+  "set_digests": {
+    "clean": "d89a944d4d3538a3df5c18f7b4062bc4f828a6e787f50c397d5191598f4e5e05",
+    "underexposed_s1": "a4f4f52e7ffdbb18cd8782ff37e9a12995b142fcdc61ff37d4867662806a1dfc",
+    "underexposed_s2": "aed410ae3952a5c8a2ef1ac1cf542884bc0aec451e38173c2d0be43c2ef5a518",
+    "underexposed_s3": "5753a4e98a873914dddcd1fd1b9ac9da3469d83e5066b4bda8c617c934360615",
+    "overexposed_s1": "3ef3a605c8db3c81d6df3777ec880874370d90b048e7e6a0f89b43965815f4f1",
+    "overexposed_s2": "94fe8be828d9e433ffa9c9c221e9b52b6cf86ee7f3e8a7e44efd2316dfaf3221",
+    "overexposed_s3": "db78d70a3f321d6f19e48249e437097a1d711100df587bac0fcda8b10f49e003",
+    "blur_s1": "208f4c0e7f90fbf6057a80ba560cbdfd8f59300c123c757eaffff1a42f7b0506",
+    "blur_s2": "41a5aa4b5c0449325aedf7774b35b1fd700e1d38ed5555da6fe5b7232aa807ac",
+    "blur_s3": "3acb57a37c1b1e6836d0d2b9ad662742a877dc249e529e29351e0115a64c1484",
+    "noise_s1": "dab1aa07d4369197231ad69835bd2b5e198bd2f57bd8573dd30d3216aafa1827",
+    "noise_s2": "d6e507d441db9f876fbe567d159a0ce76d2017472ba8d44d3b950ceec52d8b25",
+    "noise_s3": "c13bc4a5f88d76cb3dbc126bbb21cfadfff5cbab3e9796694e66f7926711779b",
+    "low_contrast_s1": "ef4cf2641e0e045a511585227fd179ae190944f882df96a2c3d135906b4b9f93",
+    "low_contrast_s2": "21b7468a50a721d103e7f1caa4fc8406cdaa67813550bc56236258060ee3a877",
+    "low_contrast_s3": "a53ebbab5f2adfdd36da62f73a16dc92c984d2aae611c5dc74df21358b59da3f"
+  }
+}
