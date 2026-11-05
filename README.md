@@ -6,8 +6,12 @@ run on the ITU UHeM cluster.
 **Research question.** Under low light, blur and noise, what improves small-object accuracy most:
 the model version (YOLO11s vs YOLO26s), the input resolution (640 vs 960), or corruption-aware training?
 
-> Status: Stages 4–5 done on val (E1, E2, E4, E5 × 3 seeds; E3 × 1 seed). Stage 6: checkpoints and protocol frozen
-> (tag `stage6-freeze`); the single test-dev evaluation and the one-node latency job are running.
+> Status: complete. Stages 4–5 on val (E1, E2, E4, E5 × 3 seeds; E3 × 1 seed); Stage 6: checkpoints and protocol
+> frozen (tag `stage6-freeze`), evaluated once on test-dev, latency of all models measured on one GPU.
+> **Answer (test-dev):** corruption-aware training and 960-px input help about equally under corruption (mPC +0.038
+> and +0.035 mAP50-95); resolution helps small objects a bit more (AP_small mPC +0.029 vs +0.022) and also clean
+> accuracy, corruption training costs nothing at inference. YOLO26s vs YOLO11s at 640 changes mAP50-95 by ≈0
+> (+0.008 clean AP_small). See [Final results](#final-results-test-dev).
 > Methods, results, limitations and reproduction commands are added as stages are completed.
 > Only measured results are reported here.
 
@@ -239,6 +243,91 @@ regions (= Stage 1 statistics); the test-dev `labels.cache` was built once on th
   refuses to start when a complete test-dev result for that run already exists.
 - `scripts/slurm/latency_all.sbatch`: all 13 checkpoints in one process on one GPU, forward and reverse order,
   then the sha256 manifest of the 15 on-the-fly corrupted test-dev sets (`results/manifests/corruptions_test-dev_*`).
+
+### Final results (test-dev)
+
+Jobs 556085–556097 (one per checkpoint, 15–19 min each on 1× A100). Every job verified its checkpoint and the
+protocol files against `stage6-freeze` first; runs used a clean tree at `f051d16` (3 jobs) or `553926e` (10 jobs),
+which differ only by `scripts/latency_table.py`. `python scripts/summarize.py --split test-dev`
+→ `results/summary/test-dev{.md,_runs.csv,_experiments.csv}`.
+
+Split `test-dev`: mean ± sample sd over seeds (n per column header).
+
+| | E1 (n=3) | E2 (n=3) | E3 (n=1) | E4 (n=3) | E5 (n=3) |
+|---|---|---|---|---|---|
+| clean mAP50-95 | 0.1823 ± 0.0012 | 0.1825 ± 0.0035 | 0.2322 | 0.2312 ± 0.0009 | 0.2313 ± 0.0015 |
+| clean mAP50 | 0.3217 ± 0.0024 | 0.3280 ± 0.0048 | 0.4033 | 0.4015 ± 0.0012 | 0.4039 ± 0.0020 |
+| clean AP_small | 0.0910 ± 0.0021 | 0.0992 ± 0.0012 | 0.1402 | 0.1379 ± 0.0022 | 0.1414 ± 0.0007 |
+| mPC (mAP50-95) | 0.1365 ± 0.0013 | 0.1364 ± 0.0014 | 0.1713 | 0.2092 ± 0.0012 | 0.2094 ± 0.0013 |
+| rPC (mAP50-95) | 0.7489 ± 0.0036 | 0.7471 ± 0.0074 | 0.7377 | 0.9048 ± 0.0023 | 0.9055 ± 0.0011 |
+| AP_small mPC | 0.0653 ± 0.0007 | 0.0699 ± 0.0004 | 0.0990 | 0.1208 ± 0.0010 | 0.1238 ± 0.0005 |
+| AP_small rPC | 0.7180 ± 0.0097 | 0.7045 ± 0.0072 | 0.7062 | 0.8764 ± 0.0068 | 0.8757 ± 0.0022 |
+| rPC underexposed | 0.9476 ± 0.0019 | 0.9599 ± 0.0033 | 0.9615 | 0.9823 ± 0.0012 | 0.9826 ± 0.0035 |
+| rPC overexposed | 0.8889 ± 0.0042 | 0.8944 ± 0.0031 | 0.9085 | 0.9348 ± 0.0012 | 0.9336 ± 0.0050 |
+| rPC blur | 0.7243 ± 0.0072 | 0.6923 ± 0.0126 | 0.5914 | 0.8137 ± 0.0060 | 0.8083 ± 0.0042 |
+| rPC noise | 0.4934 ± 0.0044 | 0.4960 ± 0.0110 | 0.4826 | 0.8590 ± 0.0035 | 0.8629 ± 0.0023 |
+| rPC low_contrast | 0.6904 ± 0.0182 | 0.6929 ± 0.0276 | 0.7442 | 0.9345 ± 0.0066 | 0.9400 ± 0.0029 |
+| mAP50-95 severity 3 (mean of 5 types) | 0.1053 ± 0.0010 | 0.1043 ± 0.0009 | 0.1339 | 0.1915 ± 0.0013 | 0.1921 ± 0.0012 |
+
+Mean differences (A − B) for the studied variable:
+
+| contrast | Δ clean mAP50-95 | Δ mPC | Δ rPC | Δ clean AP_small | Δ AP_small mPC |
+|---|---|---|---|---|---|
+| E2 − E1 (model version @640) | +0.0002 | -0.0002 | -0.0018 | +0.0082 | +0.0046 |
+| E3 − E2 (input size 640 -> 960) | +0.0497 | +0.0349 | -0.0094 | +0.0410 | +0.0291 |
+| E4 − E3 (corruption-aware training) | -0.0010 | +0.0379 | +0.1672 | -0.0024 | +0.0218 |
+| E5 − E4 (P2 head (optional)) | +0.0000 | +0.0002 | +0.0006 | +0.0035 | +0.0030 |
+
+Batch-1 latency of the same checkpoints, all in one job (556084) on one GPU
+(`python scripts/latency_table.py --job 556084` → `results/summary/latency_556084.{md,csv}`):
+
+Batch-1 latency, one job (556084) on one GPU (a129, NVIDIA A100 80GB PCIe), FP16, eager PyTorch, 300 val images after 50 warm-up; mean of two passes in opposite model order; per experiment = mean over seeds (n).
+
+| | E1 (n=3) | E2 (n=3) | E3 (n=1) | E4 (n=3) | E5 (n=3) |
+|---|---|---|---|---|---|
+| deploy (conf 0.25, max_det 300): wall p50 (ms) | 7.73 | 8.60 | 8.97 | 8.99 | 10.67 |
+| deploy (conf 0.25, max_det 300): wall p95 (ms) | 8.09 | 8.80 | 9.01 | 9.25 | 10.93 |
+| deploy (conf 0.25, max_det 300): preprocess (ms) | 1.11 | 0.97 | 1.10 | 1.17 | 1.34 |
+| deploy (conf 0.25, max_det 300): inference (ms) | 5.72 | 7.09 | 7.01 | 7.01 | 8.51 |
+| deploy (conf 0.25, max_det 300): postprocess (ms) | 0.76 | 0.29 | 0.29 | 0.29 | 0.29 |
+| deploy (conf 0.25, max_det 300): GPU forward p50 (ms) | 5.60 | 7.02 | 6.94 | 6.94 | 8.44 |
+| eval (conf 0.001, max_det 1000): wall p50 (ms) | 7.61 | 8.54 | 8.94 | 8.97 | 10.47 |
+| eval (conf 0.001, max_det 1000): wall p95 (ms) | 7.82 | 8.65 | 8.99 | 9.14 | 10.54 |
+| eval (conf 0.001, max_det 1000): preprocess (ms) | 0.90 | 0.88 | 1.09 | 1.14 | 1.09 |
+| eval (conf 0.001, max_det 1000): inference (ms) | 5.67 | 7.10 | 6.99 | 6.99 | 8.53 |
+| eval (conf 0.001, max_det 1000): postprocess (ms) | 0.81 | 0.29 | 0.29 | 0.29 | 0.29 |
+| eval (conf 0.001, max_det 1000): GPU forward p50 (ms) | 5.59 | 7.03 | 6.93 | 6.92 | 8.47 |
+| parameters (M) | 9.43 | 9.96 | 9.96 | 9.96 | 9.67 |
+
+Largest |forward − reverse| difference of a run's wall p50: 1.45 ms (E1_s0, deploy). Peak VRAM is not reported from this multi-model process (earlier models' allocations inflate the peak); see the single-model per-run files results/latency/<run>.json.
+
+Batch-16 val inference (ms/img, FP16; `results/summary/val.md` runs): E1 0.76, E2 0.80, E3 1.27, E4 1.27, E5 1.82.
+
+**Findings (test-dev is the unbiased estimate; differences are means over seeds, sd 0.001–0.004):**
+1. **Model version** (E2−E1, YOLO26s vs YOLO11s @640): clean mAP50-95 +0.0002, mPC −0.0002 — no difference; small
+   objects favour YOLO26s (clean AP_small +0.008, AP_small mPC +0.005). Batch-1 latency: YOLO11s 7.73 vs YOLO26s 8.60 ms
+   (YOLO11s forward 5.7 vs 7.1 ms; its NMS postprocess 0.76 vs 0.29 ms does not offset that).
+2. **Input size** (E3−E2, 640→960): clean +0.050, mPC +0.035, AP_small mPC +0.029; rPC unchanged (0.747 → 0.738),
+   i.e. the extra accuracy carries over to corrupted images proportionally rather than adding robustness.
+   Cost: batch-16 inference 0.80 → 1.27 ms/img, training 1.5×; batch-1 latency only +0.4 ms (launch-bound).
+3. **Corruption-aware training** (E4−E3): clean −0.001 (no clean cost), mPC +0.038, rPC 0.738 → 0.905, AP_small mPC
+   +0.022; same network, so no inference cost. Largest gains: noise (rPC 0.48 → 0.86), blur (0.59 → 0.81),
+   low contrast (0.74 → 0.93). Combined with 960 px (E4 vs E2): mPC +0.073, AP_small mPC +0.051.
+4. **P2 head** (E5−E4, optional): the val advantage (+0.004 mPC) does not replicate: test-dev clean +0.0000, mPC
+   +0.0002, AP_small +0.0035 / AP_small mPC +0.0030, at +1.7 ms batch-1 (+19%), +43% batch-16 inference and 1.84×
+   training time. E5 was the best model declared before test-dev (val mPC); on test-dev it is equivalent to E4,
+   so **E4 (YOLO26s@960 + corruption-aware training) is the better accuracy/cost choice**.
+5. val → test-dev: every model loses 0.05–0.07 mAP50-95 (test-dev is harder and val also chose `best.pt`); the
+   ordering of experiments is preserved (Spearman ρ = 0.89 between val and test-dev mPC over the 13 checkpoints;
+   the swaps are within E1/E2 and within E4/E5).
+
+**Limitations.** Training-time and test-time corruptions share families and parameter ranges (in-distribution
+robustness only). E3 has one seed; n = 3 elsewhere, no significance tests. COCO-style evaluation with VisDrone
+ignored regions, not the official VisDrone toolkit. Latency is eager PyTorch FP16 at batch 1 on an A100 (launch-bound),
+not an optimised deployment engine. E5's initialisation differs from E4's (360/902 transferred items).
+
+Compute: ~13 GPU-h on 2026-11-05 alone; project total 3,575 CpuSaat of 25,000 before today's last 6 h of jobs.
+Raw test-dev predictions (gzip) take ~3.0 GB in `runs/eval/*/test-dev/` (not in git).
 
 ## License notes
 
