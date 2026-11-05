@@ -40,9 +40,9 @@ def sha256(p: Path) -> str:
 
 
 def completed_runs() -> list[dict]:
-    import yaml
+    from ultralytics.utils import YAML  # pyyaml wrapper used by every other project script
 
-    exps = yaml.safe_load((ROOT / "configs" / "experiments.yaml").read_text())["experiments"]
+    exps = YAML.load(ROOT / "configs" / "experiments.yaml")["experiments"]
     out = []
     for d in sorted((ROOT / "results" / "train").iterdir(), key=lambda p: p.name):
         m = RUN_RE.match(d.name)
