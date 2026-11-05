@@ -2,6 +2,7 @@
 
     python scripts/check_label_caches.py            # exit 1 if datasets/VisDrone/{train,val}/labels.cache is stale
     python scripts/check_label_caches.py --rebuild  # rewrite stale caches (never while jobs are starting)
+    python scripts/check_label_caches.py --test-dev # also datasets/VisDrone/test-dev (Stage 6 evaluation jobs)
 
 Why: ultralytics 8.4.202 save_dataset_cache_file() does `if path.exists(): path.unlink()` before writing, so
 jobs that start at the same time and all find a stale cache race on the unlink (FileNotFoundError; jobs 555219 and
@@ -34,21 +35,26 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--rebuild", action="store_true")
     ap.add_argument("--data", default=str(ROOT / "configs" / "visdrone.yaml"))
+    ap.add_argument("--test-dev", action="store_true", help="also check/rebuild the test-dev cache (Stage 6)")
     a = ap.parse_args()
 
     data = check_det_dataset(a.data)
     hyp = get_cfg(DEFAULT_CFG)
     cls = YOLODataset if a.rebuild else _CheckOnly
+    # test-dev is not in visdrone.yaml (by design); same image dir string as scripts/evaluate.py builds
+    paths = {"train": data["train"], "val": data["val"]}
+    if a.test_dev:
+        paths["test-dev"] = str(ROOT / "datasets" / "VisDrone" / "test-dev" / "images")
     bad = []
-    for split in ("train", "val"):
+    for split, img_path in paths.items():
         try:
-            ds = cls(img_path=data[split], imgsz=640, augment=False, hyp=hyp, data=data, task="detect", prefix=f"{split}: ")
+            ds = cls(img_path=img_path, imgsz=640, augment=False, hyp=hyp, data=data, task="detect", prefix=f"{split}: ")
             print(f"{split}: label cache OK ({len(ds)} images)")
         except RuntimeError as e:
             bad.append(split)
             print(f"{split}: {e}")
     if bad:
-        print("rebuild on the login node with: python scripts/check_label_caches.py --rebuild")
+        print("rebuild on the login node with: python scripts/check_label_caches.py --rebuild" + (" --test-dev" if a.test_dev else ""))
         sys.exit(1)
 
 
