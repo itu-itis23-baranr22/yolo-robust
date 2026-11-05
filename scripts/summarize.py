@@ -133,7 +133,7 @@ def main() -> None:
             ks = ("mAP50_95_clean", "mAP50_95_mPC", "mAP50_95_rPC", "AP_small_clean", "AP_small_mPC")
             lines.append(f"| {x} − {y} ({what}) | " + " | ".join(f"{by_exp[x][k + '_mean'] - by_exp[y][k + '_mean']:+.4f}" for k in ks) + " |")
     md = "\n".join(lines) + "\n"
-    (out / f"{a.split}.md").write_text(md)
+    (out / f"{a.split}.md").write_text(md, encoding="utf-8")
     print(md)
 
 

@@ -1,0 +1,93 @@
+{
+  "timestamp": "2026-11-05T15:03:30+0300",
+  "host": "a108",
+  "python": "3.12.4",
+  "git": {
+    "commit": "553926e579d9c161a4407aff8f37364d012768db",
+    "dirty": false
+  },
+  "packages": {
+    "torch": "2.6.0+cu124",
+    "torchvision": "0.21.0+cu124",
+    "ultralytics": "8.4.202",
+    "numpy": "2.5.4",
+    "opencv": "5.0.0"
+  },
+  "requirements_lock_sha256": "ca32cd092dbb6e87d6095399f8d1c0964333eeb1622bfad2f8931debb25ea108",
+  "cuda": {
+    "torch_cuda": "12.4",
+    "cudnn": 90100,
+    "available": true
+  },
+  "gpus": [
+    {
+      "index": 0,
+      "name": "NVIDIA A100 80GB PCIe",
+      "total_memory_gb": 79.26,
+      "capability": "8.0",
+      "driver": "555.42.02"
+    }
+  ],
+  "slurm": {
+    "SLURM_JOB_ID": "556089",
+    "SLURM_JOB_NAME": "yr_T_E2s1",
+    "SLURM_JOB_PARTITION": "gpu2dq",
+    "SLURM_JOB_ACCOUNT": "gh0002",
+    "SLURM_JOB_NODELIST": "a108",
+    "SLURM_CPUS_PER_TASK": "32",
+    "SLURM_MEM_PER_NODE": "131072"
+  },
+  "env": {
+    "YOLO_OFFLINE": "true",
+    "YOLO_AUTOINSTALL": "false",
+    "YOLO_CONFIG_DIR": "/ari/users/rbaran/yolo-robust/.ultralytics",
+    "CUBLAS_WORKSPACE_CONFIG": null,
+    "CUDA_VISIBLE_DEVICES": null
+  },
+  "seed": null,
+  "config": {
+    "weights": "/ari/users/rbaran/yolo-robust/runs/train/E2_s1/weights/best.pt",
+    "imgsz": 640,
+    "split": "test-dev",
+    "subset": null,
+    "sets": [
+      "clean",
+      "underexposed_s1",
+      "underexposed_s2",
+      "underexposed_s3",
+      "overexposed_s1",
+      "overexposed_s2",
+      "overexposed_s3",
+      "blur_s1",
+      "blur_s2",
+      "blur_s3",
+      "noise_s1",
+      "noise_s2",
+      "noise_s3",
+      "low_contrast_s1",
+      "low_contrast_s2",
+      "low_contrast_s3"
+    ],
+    "val_args": {
+      "conf": 0.001,
+      "iou": 0.7,
+      "max_det": 1000,
+      "nms": false,
+      "quantize": 16,
+      "rect": true,
+      "save_json": true,
+      "plots": false
+    },
+    "batch": 16,
+    "backend": "faster",
+    "corruptions_version": 1
+  },
+  "extra": {
+    "gt_counts": {
+      "images": 1610,
+      "gt_boxes": 75102,
+      "ignore_regions": 2445
+    },
+    "final": true
+  }
+}
