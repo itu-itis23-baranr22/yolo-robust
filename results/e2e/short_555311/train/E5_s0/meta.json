@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-11-05T01:16:14+0300",
+  "host": "a126",
+  "python": "3.12.4",
+  "git": {
+    "commit": "58a5cc76e90512b5d0e0c8b89e81986b9fd57c3c",
+    "dirty": false
+  },
+  "packages": {
+    "torch": "2.6.0+cu124",
+    "torchvision": "0.21.0+cu124",
+    "ultralytics": "8.4.202",
+    "numpy": "2.5.4",
+    "opencv": "5.0.0"
+  },
+  "requirements_lock_sha256": "ca32cd092dbb6e87d6095399f8d1c0964333eeb1622bfad2f8931debb25ea108",
+  "cuda": {
+    "torch_cuda": "12.4",
+    "cudnn": 90100,
+    "available": true
+  },
+  "gpus": [
+    {
+      "index": 0,
+      "name": "NVIDIA A100 80GB PCIe",
+      "total_memory_gb": 79.26,
+      "capability": "8.0",
+      "driver": "555.42.02"
+    }
+  ],
+  "slurm": {
+    "SLURM_JOB_ID": "555311",
+    "SLURM_JOB_NAME": "yr_E5short",
+    "SLURM_JOB_PARTITION": "gpu2dq",
+    "SLURM_JOB_ACCOUNT": "gh0002",
+    "SLURM_JOB_NODELIST": "a126",
+    "SLURM_CPUS_PER_TASK": "32",
+    "SLURM_MEM_PER_NODE": "131072"
+  },
+  "env": {
+    "YOLO_OFFLINE": "true",
+    "YOLO_AUTOINSTALL": "false",
+    "YOLO_CONFIG_DIR": "/ari/users/rbaran/yolo-robust/.ultralytics",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUDA_VISIBLE_DEVICES": null
+  },
+  "seed": 0,
+  "config": {
+    "experiment": "E5",
+    "spec": {
+      "model": "yolo26s-p2.yaml",
+      "pretrained": "yolo26s.pt",
+      "imgsz": 960,
+      "augment": "corruption",
+      "optional": true
+    },
+    "train_args": {
+      "data": "/ari/users/rbaran/yolo-robust/configs/visdrone.yaml",
+      "epochs": 2,
+      "patience": 100,
+      "batch": 16,
+      "workers": 16,
+      "optimizer": "MuSGD",
+      "lr0": 0.01,
+      "momentum": 0.9,
+      "amp": true,
+      "deterministic": true,
+      "close_mosaic": 10,
+      "save_period": 10,
+      "cache": false,
+      "max_det": 1000,
+      "nms": false,
+      "plots": true,
+      "imgsz": 960,
+      "seed": 0,
+      "pretrained": "/ari/users/rbaran/yolo-robust/weights/yolo26s.pt"
+    }
+  },
+  "extra": {
+    "status": "completed",
+    "trainer": "CorruptionAugTrainer",
+    "wall_s": 220.29679012298584,
+    "epochs": [
+      {
+        "epoch": 1,
+        "train_s": 93.34793959099989,
+        "train_plus_val_s": 100.93479098199896,
+        "img_per_s": 69.32129437834854,
+        "peak_reserved_gb": 54.689453125
+      },
+      {
+        "epoch": 2,
+        "train_s": 85.67265886200039,
+        "train_plus_val_s": 91.02639328999794,
+        "img_per_s": 75.53168170516737,
+        "peak_reserved_gb": 35.455078125
+      }
+    ],
+    "train_dataset_class": "RobustYOLODataset",
+    "train_corruption": {
+      "mode": "train_augment",
+      "p": 0.5,
+      "config_version": 1
+    },
+    "train_images": 6471,
+    "batch_actual": 16,
+    "final_eval_callbacks": 1,
+    "save_dir": "/ari/users/rbaran/yolo-robust/runs/e2e/short_555311/E5_s0"
+  }
+}
