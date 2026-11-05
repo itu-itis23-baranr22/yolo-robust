@@ -1,0 +1,266 @@
+{
+  "purpose": "Stage 6: checkpoints and protocol frozen before the single test-dev evaluation",
+  "git_commit_before_freeze": "6b41dba68a1e31725e3f15f1822937a4335dc139",
+  "selection": {
+    "criterion": "highest mean val mPC (mAP50-95) over seeds (approved in Stage 5)",
+    "val_mean_mPC_by_exp": {
+      "E1": 0.1811728322687581,
+      "E2": 0.17890174902393613,
+      "E3": 0.2268748390102597,
+      "E4": 0.27458701453845186,
+      "E5": 0.27817928189587915
+    },
+    "best_experiment": "E5",
+    "seeds_per_exp": {
+      "E1": 3,
+      "E2": 3,
+      "E3": 1,
+      "E4": 3,
+      "E5": 3
+    }
+  },
+  "protocol_sha256": {
+    "scripts/evaluate.py": "5067eeafd2004127c134086415aa736a3efe76ed4bb9377cab3a177feccea3f3",
+    "scripts/latency.py": "02057747c820e288dbcedf5ecc98fa18fb85101d5081b6dacf2667f18137fe48",
+    "src/coco_eval.py": "2201bffeab9f1e391c8eee07bd2f28a2873780e1a311f29bef65a824bce7b295",
+    "src/robust_data.py": "dfca4118fdb71f2f57f3e1ccaae22212631ac286f505ac1920d4e6d04006e85a",
+    "src/corruptions.py": "9b5b3eff84e87fa473132c9ac580014490eb7085e94852f5338268f4b077cd11",
+    "src/robustness.py": "659a5978a7410134f8c27cf661a41ca25fec1b7722c949e48e3faa70637f81de",
+    "src/visdrone.py": "d036ce812b192f3317c145fac72dc6fc40f0d5a8ab8cdb735a686c08ba9f550d",
+    "configs/corruptions.yaml": "521d8c9c873998fe181a554e8f2bce13eba1b5810daac086116fa594c158588b",
+    "configs/experiments.yaml": "ad5c2c7ab6a8dd19310e65ad8041c0f46ebe17d325c76166327b6f6bb5047d07",
+    "configs/visdrone.yaml": "39ee5367a29c40798191a40782c8b403de50a0328cd9c552f9be59b745cc57a2",
+    "requirements.lock": "ca32cd092dbb6e87d6095399f8d1c0964333eeb1622bfad2f8931debb25ea108"
+  },
+  "test_dev": {
+    "images": 1610,
+    "gt_counts": {
+      "images": 1610,
+      "gt_boxes": 75102,
+      "ignore_regions": 2445
+    }
+  },
+  "runs": [
+    {
+      "run": "E1_s0",
+      "exp": "E1",
+      "seed": 0,
+      "model": "yolo11s.pt",
+      "imgsz": 640,
+      "augment": "standard",
+      "weights": "runs/train/E1_s0/weights/best.pt",
+      "sha256": "007ccf5d6fc379a374c2ceb767800bbfa97ee30db8fdc5f129e7ab44bf84fff7",
+      "bytes": 19171347,
+      "val": {
+        "mAP50_95": 0.7968005605046088,
+        "AP_small": 0.7705605068427356,
+        "mAP50_95_clean": 0.22660928690832624,
+        "mAP50_95_mPC": 0.18056240682410404
+      }
+    },
+    {
+      "run": "E1_s1",
+      "exp": "E1",
+      "seed": 1,
+      "model": "yolo11s.pt",
+      "imgsz": 640,
+      "augment": "standard",
+      "weights": "runs/train/E1_s1/weights/best.pt",
+      "sha256": "7d86fcba573350a1c37c7d932d006133ac7abc7e5767446bbb971f49dd8140b8",
+      "bytes": 19171347,
+      "val": {
+        "mAP50_95": 0.7872172793654819,
+        "AP_small": 0.7527016139431039,
+        "mAP50_95_clean": 0.23029635500398038,
+        "mAP50_95_mPC": 0.18129327003402063
+      }
+    },
+    {
+      "run": "E1_s2",
+      "exp": "E1",
+      "seed": 2,
+      "model": "yolo11s.pt",
+      "imgsz": 640,
+      "augment": "standard",
+      "weights": "runs/train/E1_s2/weights/best.pt",
+      "sha256": "701a890bd250e3dbcbdb5041c9925d359ae352a12369a0b0ade48b0517deb187",
+      "bytes": 19171347,
+      "val": {
+        "mAP50_95": 0.7935459674366262,
+        "AP_small": 0.7626179581347874,
+        "mAP50_95_clean": 0.2289253898359171,
+        "mAP50_95_mPC": 0.18166281994814962
+      }
+    },
+    {
+      "run": "E2_s0",
+      "exp": "E2",
+      "seed": 0,
+      "model": "yolo26s.pt",
+      "imgsz": 640,
+      "augment": "standard",
+      "weights": "runs/train/E2_s0/weights/best.pt",
+      "sha256": "8ce1baf884f706052a9a6df5d97d02ba16a537631d426be200d22943686bc1a7",
+      "bytes": 20312510,
+      "val": {
+        "mAP50_95": 0.7699669392151715,
+        "AP_small": 0.7394325013306482,
+        "mAP50_95_clean": 0.23186538269937515,
+        "mAP50_95_mPC": 0.17852867902699227
+      }
+    },
+    {
+      "run": "E2_s1",
+      "exp": "E2",
+      "seed": 1,
+      "model": "yolo26s.pt",
+      "imgsz": 640,
+      "augment": "standard",
+      "weights": "runs/train/E2_s1/weights/best.pt",
+      "sha256": "432a9b6c7000f1d8eb4edd6cf09f1bfe079766a80b6e416b61e72e2d4b0c2cd8",
+      "bytes": 20312510,
+      "val": {
+        "mAP50_95": 0.7719242237094338,
+        "AP_small": 0.742153425795115,
+        "mAP50_95_clean": 0.2322724875259617,
+        "mAP50_95_mPC": 0.17929675962253713
+      }
+    },
+    {
+      "run": "E2_s2",
+      "exp": "E2",
+      "seed": 2,
+      "model": "yolo26s.pt",
+      "imgsz": 640,
+      "augment": "standard",
+      "weights": "runs/train/E2_s2/weights/best.pt",
+      "sha256": "1f5766c6613760f6754d23e718f94e15d027d470534ec9148f13a4ed2d392a1b",
+      "bytes": 20312510,
+      "val": {
+        "mAP50_95": 0.7743269298273142,
+        "AP_small": 0.7378691082510896,
+        "mAP50_95_clean": 0.23101328590259895,
+        "mAP50_95_mPC": 0.17887980842227902
+      }
+    },
+    {
+      "run": "E3_s0",
+      "exp": "E3",
+      "seed": 0,
+      "model": "yolo26s.pt",
+      "imgsz": 960,
+      "augment": "standard",
+      "weights": "runs/train/E3_s0/weights/best.pt",
+      "sha256": "6933d5719062aa6ec5663cbf312a1671020d245155870bf4cce26d5ac799f97a",
+      "bytes": 20351102,
+      "val": {
+        "mAP50_95": 0.7675163881044337,
+        "AP_small": 0.7321807569932464,
+        "mAP50_95_clean": 0.2955960843658097,
+        "mAP50_95_mPC": 0.2268748390102597
+      }
+    },
+    {
+      "run": "E4_s0",
+      "exp": "E4",
+      "seed": 0,
+      "model": "yolo26s.pt",
+      "imgsz": 960,
+      "augment": "corruption",
+      "weights": "runs/train/E4_s0/weights/best.pt",
+      "sha256": "67fc2bbf50e06f3fe337f583ec5f66654b5d8097aa8ff848189c00c92a186e86",
+      "bytes": 20351102,
+      "val": {
+        "mAP50_95": 0.9121340744125053,
+        "AP_small": 0.8830011407708617,
+        "mAP50_95_clean": 0.3007140002777555,
+        "mAP50_95_mPC": 0.2742914863062324
+      }
+    },
+    {
+      "run": "E4_s1",
+      "exp": "E4",
+      "seed": 1,
+      "model": "yolo26s.pt",
+      "imgsz": 960,
+      "augment": "corruption",
+      "weights": "runs/train/E4_s1/weights/best.pt",
+      "sha256": "f068f0b55ef783cc097c6880ca52ef67526b2c2e5e8c1e9ba3200d57955e9911",
+      "bytes": 20351166,
+      "val": {
+        "mAP50_95": 0.9139095459618507,
+        "AP_small": 0.8895011104568341,
+        "mAP50_95_clean": 0.30256717516845383,
+        "mAP50_95_mPC": 0.2765190296811614
+      }
+    },
+    {
+      "run": "E4_s2",
+      "exp": "E4",
+      "seed": 2,
+      "model": "yolo26s.pt",
+      "imgsz": 960,
+      "augment": "corruption",
+      "weights": "runs/train/E4_s2/weights/best.pt",
+      "sha256": "7ecf77ef649fe4162f30527b6da8a551d3123389606f2641cb853dfe5f5eebc0",
+      "bytes": 20351166,
+      "val": {
+        "mAP50_95": 0.9133246539041587,
+        "AP_small": 0.8811738386406037,
+        "mAP50_95_clean": 0.29885378267321394,
+        "mAP50_95_mPC": 0.2729505276279618
+      }
+    },
+    {
+      "run": "E5_s0",
+      "exp": "E5",
+      "seed": 0,
+      "model": "yolo26s-p2.yaml",
+      "imgsz": 960,
+      "augment": "corruption",
+      "weights": "runs/train/E5_s0/weights/best.pt",
+      "sha256": "f37e5b0e4a85ad07511efcd65fa87cdc69fbd5d07f5ace8d4c943703f5469a0d",
+      "bytes": 20065204,
+      "val": {
+        "mAP50_95": 0.9125004674109402,
+        "AP_small": 0.8831240079378092,
+        "mAP50_95_clean": 0.305271059949025,
+        "mAP50_95_mPC": 0.2785599848905184
+      }
+    },
+    {
+      "run": "E5_s1",
+      "exp": "E5",
+      "seed": 1,
+      "model": "yolo26s-p2.yaml",
+      "imgsz": 960,
+      "augment": "corruption",
+      "weights": "runs/train/E5_s1/weights/best.pt",
+      "sha256": "ff62934ab6ad26484ddc33012c86a6765890cb21fb271d6c7dd7462cce4b786f",
+      "bytes": 20065204,
+      "val": {
+        "mAP50_95": 0.9184145633039,
+        "AP_small": 0.8865978842665966,
+        "mAP50_95_clean": 0.3033815523079188,
+        "mAP50_95_mPC": 0.27863003587733653
+      }
+    },
+    {
+      "run": "E5_s2",
+      "exp": "E5",
+      "seed": 2,
+      "model": "yolo26s-p2.yaml",
+      "imgsz": 960,
+      "augment": "corruption",
+      "weights": "runs/train/E5_s2/weights/best.pt",
+      "sha256": "9892c36523649e9acb22596d90f8b808d4b537a89ff99213659028724e29ee1e",
+      "bytes": 20065204,
+      "val": {
+        "mAP50_95": 0.9184387323243196,
+        "AP_small": 0.8877092621791102,
+        "mAP50_95_clean": 0.30197749197476714,
+        "mAP50_95_mPC": 0.27734782491978255
+      }
+    }
+  ]
+}
