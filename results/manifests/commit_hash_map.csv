@@ -1,0 +1,21 @@
+original_commit,public_commit,subject
+9fe4f9f1991377c875c0b61776bd5790ebd51898,f87532f6b0889fba0aa0280439294a1972966b2d,"Stage 1: environment, offline config, VisDrone data pipeline"
+2448b6b070591246d884b6b85d5e08ae6a752da6,762bdfd3adf9cd0a148c850248c8ce6ba04b9bdc,"Stage 2: smoke test (offline/GPU checks, throughput, resume, val, latency) and run metadata"
+9c3f7c8f8efc785db45ea3be7963c84d3580696c,07ad2ef71414318ebccae696b40ee105a9bec952,Stage 2: smoke test results (job 555069) and runmeta dirty-flag fix
+810edbd0b8aad57b747280428ddbf6c9c5baf423,7d0f93670d9decf31a56221e900d7b0fe6235a12,Stage 3: freeze corruption definitions before any evaluation
+e482a5badd46af755f535dbeaa40c45d61cf4502,d75e3b5ef574ec4831efe9d5fc34f0b6e8f774e4,"Stage 3: on-the-fly corruption pipeline, COCO eval with ignored regions, mPC/rPC, train/eval/latency scripts"
+c380655c3d7db7f155c373cb0162450e9c3e371a,c2ae9865ef3b1dc90de9716e9cd28f967f5120df,"Stage 3: end-to-end check (job 555207), corruption manifest, README methods"
+ac551b5be88f8e0bdcd2c79654c3d88a371b7009,b04043f69d4a7f1fe1837bb093117e365924c24c,"Stage 4 setup: train_eval job, gzip'ed predictions, batch-16 secondary latency"
+6ceb1a49b82b4098436e85e1ba93525bfbf00de6,0f02680e4298cecca54421956db91e847eca1519,Guard against the shared labels.cache rebuild race; record failed E1/E3 attempts
+480e8bfeda8042a334777021672f80c58d0ec7b8,a9cff72055e50b431c4be6d2dc9ac7cc36cde5ff,Stage 4: E1-E3 (seed 0) trained and evaluated on clean + 15 corrupted val sets
+19f3bfa9cf8fccb3646faca91e6511a2ddc1a681,4a24e516fa1a5a6dd7168e07bec3163b1237a9ef,short_train.sbatch: smoke-level full-split short run + latency (no fraction: keeps labels.cache valid)
+58a5cc76e90512b5d0e0c8b89e81986b9fd57c3c,c998948b19f7024c1cd0ce7359f95a77fff59d8f,"Stage 5: E4 (seed 0) and E1/E2 seed 1-2 repeats, evaluated on clean + 15 corrupted val sets"
+f410de64af4415670422c868185248e7fd5a6bc5,42f2a1bbdb49d0f0fc107854a52ea451b89d172a,Stage 5: E4 seed 1-2 repeats + E5 2-epoch smoke (throughput/latency only)
+0a5e2c41688a644ccafbddb910c23240d80db983,237edc394d864dcbf9512b372684ba81d00b5bb8,Stage 5: E5 (YOLO26s-P2@960 + corruption augment) seeds 0-2; per-split summary tables
+3469e297d66bab4272cc6b9b48c907368d9f5278,7a887f1b4a674875f776e77336cc71e19d73dcb9,"Stage 6 tooling: freeze manifest, one-node latency job, guarded test-dev evaluation job"
+6b41dba68a1e31725e3f15f1822937a4335dc139,5c7b5496721693f071a974158f44ce4bf5876e6b,freeze_models.py: load experiments.yaml via ultralytics YAML (pyyaml import name not available)
+285b0a31d4e2d8b67dcc77e8ce294e35e7383703,4a19dc2641c5b03b7700500ca20ac3801efbfc28,"Stage 6 freeze: 13 checkpoints (E1-E5, all seeds) + protocol sha256, best model declared before test-dev"
+f051d16d9ca464dc30e81ed46f7bc64ebd601452,f946366cb8277f01da677e5975d80edf89fbc89b,"README: Stage 5 results (3-seed val table, contrasts, E5 confound) and Stage 6 freeze protocol"
+553926e579d9c161a4407aff8f37364d012768db,55b9ce8dcc6751b2609a5aa9fa5c78f3ed39c319,Stage 6: one-node batch-1 latency of all 13 frozen checkpoints + test-dev corruption manifest (job 556084)
+35d1f53175c90cb1464de83dc36aa15a5649d503,25b0dc09cc1da359c3d539cdaefeceb431813d47,Stage 6: single test-dev evaluation of the 13 frozen checkpoints (jobs 556085-556097)
+b462c0f4163e26c0622fb0fb9b1f805272e4c108,c4336ce7fa9dde99a00ca0fd932916a952db398e,"README: Stage 6 final test-dev results, latency table, findings and limitations"

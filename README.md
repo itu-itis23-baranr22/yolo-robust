@@ -15,6 +15,11 @@ the model version (YOLO11s vs YOLO26s), the input resolution (640 vs 960), or co
 > Methods, results, limitations and reproduction commands are added as stages are completed.
 > Only measured results are reported here.
 
+> **Commit hashes.** This public history was rewritten before release: commit metadata was normalised (author
+> identity, message trailers) and 10 dataset-derived JPEGs (`results/figures`, `results/label_checks`) were removed;
+> every other file in those commits is byte-identical. Hashes cited in this README and under `results/` are the
+> original ones; `results/manifests/commit_hash_map.csv` maps each one to its commit here.
+
 ## Layout
 
 | Path | Content | In git |
@@ -331,9 +336,12 @@ Raw test-dev predictions (gzip) take ~3.0 GB in `runs/eval/*/test-dev/` (not in 
 
 ## License notes
 
+- **This repository** is licensed under **AGPL-3.0** (see `LICENSE`).
 - **Ultralytics** (YOLO11, YOLO26, training/validation code) is licensed under
   **AGPL-3.0** (https://github.com/ultralytics/ultralytics/blob/main/LICENSE).
   This project uses it as a dependency; distributing this code or offering it as a network
   service brings AGPL-3.0 obligations. Ultralytics also offers a separate Enterprise License.
 - **VisDrone2019-DET** (https://github.com/VisDrone/VisDrone-Dataset, Tianjin University) has its own
   terms of use; the dataset is not redistributed in this repository.
+  Sample figures can be regenerated locally with `scripts/corruption_manifest.py --samples N` and
+  `scripts/visualize_labels.py`.
